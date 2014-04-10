@@ -2,8 +2,6 @@ package com.grp6.gestage;
 
 import java.util.ArrayList;
 
-
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Fragment;
@@ -21,12 +19,17 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.grp6.gestage.fonction.PersonneF;
+import com.grp6.gestage.fragment.AccueilFragment;
+import com.grp6.gestage.library.NavDrawerItem;
+import com.grp6.gestage.library.NavDrawerListAdapter;
+
 public class MainActivity extends Activity{
 
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
-	
+	PersonneF personneF; 
 
 	// nav drawer title
 	private CharSequence mDrawerTitle;
@@ -44,8 +47,8 @@ public class MainActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		employeF = new EmployeF(getApplicationContext());
-	        if(employeF.isUserLoggedIn(getApplicationContext())){
+		 personneF = new PersonneF(getApplicationContext());
+	        if(personneF.isUserLoggedIn(getApplicationContext())){
 		setContentView(R.layout.vue_principal);
 	
 

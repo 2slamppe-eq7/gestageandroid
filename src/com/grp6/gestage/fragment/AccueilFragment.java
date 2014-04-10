@@ -2,8 +2,14 @@ package com.grp6.gestage.fragment;
 
 import java.util.HashMap;
 
+import com.grp6.gestage.R;
+import com.grp6.gestage.library.DatabaseHandler;
+
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,8 +17,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.s3a.s3aechange.R;
-import com.s3a.s3aechange.modele.library.DatabaseHandler;
+
 
 public class AccueilFragment extends Fragment {
 
