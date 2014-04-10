@@ -39,6 +39,11 @@ public class Personne {
 	}
 	
 	
+	public Personne(int idpersonne, String civilite, String nom, String prenom) {
+		// TODO Auto-generated constructor stub
+	}
+
+
 	public int getIdpersonne() {
 		return idpersonne;
 	}
