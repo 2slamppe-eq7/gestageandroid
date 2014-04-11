@@ -33,7 +33,6 @@ public class StageFragment extends Fragment {
 				false);
 
 
-
 		
 		return rootView;
 	}
