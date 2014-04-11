@@ -47,7 +47,7 @@ public class MainActivity extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 personneF = new PersonneF(getApplicationContext());
+		 personneF = new PersonneF();
 	        if(personneF.isUserLoggedIn(getApplicationContext())){
 		setContentView(R.layout.vue_principal);
 	

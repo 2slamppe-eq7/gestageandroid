@@ -6,7 +6,7 @@
     <uses-sdk
         android:minSdkVersion="12"
         android:targetSdkVersion="18" />
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="comgrp6.gestage.LoginActivity"
+            android:name="com.grp6.gestage.LoginActivity"
             android:configChanges="orientation"
             android:label="Connexion"
             android:screenOrientation="landscape" >

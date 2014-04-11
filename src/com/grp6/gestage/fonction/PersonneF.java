@@ -24,8 +24,8 @@ public class PersonneF  extends Config {
 	private static String register_tag = "register";
 	
 	// constructor
-	public PersonneF( Context uncontext){
-		jsonParser = new JSONParser( uncontext);
+	public PersonneF(  ){
+		jsonParser = new JSONParser( );
 	}
 	
 	/**
@@ -39,10 +39,10 @@ public class PersonneF  extends Config {
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", "personne"));
-		params.add(new BasicNameValuePair("fonc", "login"));
+		params.add(new BasicNameValuePair("fonc", "connexion"));
 		params.add(new BasicNameValuePair("login", login));
-		params.add(new BasicNameValuePair("password", password));
-		JSONObject json = jsonParser.getJSONFromUrl(URL1, URL2, params);
+		params.add(new BasicNameValuePair("mdp", password));
+		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		// return json
 		// Log.e("JSON", json.toString());
 		return json;
@@ -77,7 +77,7 @@ public class PersonneF  extends Config {
 		ArrayList<Personne> lesPersonnes = new ArrayList<Personne>();
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		JSONObject json = jsonParser.getJSONFromUrl(URL1, URL2, params);
+		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		
 		lesPersonnes.add(chargerUnEnregistrement(json ));
 		// return json

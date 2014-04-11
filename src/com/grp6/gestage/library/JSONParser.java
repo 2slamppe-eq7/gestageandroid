@@ -29,14 +29,14 @@ public class JSONParser {
 	static InputStream is = null;
 	static JSONObject jObj = null;
 	static String json = "";
-	Context context;
+
 	// constructor
-	public JSONParser(Context context) {
-this.context=context;
+	public JSONParser() {
+
 	}
 
 
-	public JSONObject getJSONFromUrl( String url1, String url2, List<NameValuePair> params) throws IllegalStateException, IOException{
+	public JSONObject getJSONFromUrl( String url, List<NameValuePair> params) throws IllegalStateException, IOException{
 
 		// Making HTTP request
 	
@@ -61,30 +61,25 @@ this.context=context;
 			// defaultHttpClient
 			DefaultHttpClient httpClient = new DefaultHttpClient(httpParameters);
 		
-			HttpPost httpPost1 = new HttpPost(url1);
-			httpPost1.setEntity(new UrlEncodedFormEntity(params));
-			HttpPost httpPost2 = new HttpPost(url2);
-			httpPost2.setEntity(new UrlEncodedFormEntity(params));
+			HttpPost httpPost = new HttpPost(url);
+			httpPost.setEntity(new UrlEncodedFormEntity(params));
+		
 	
 			HttpResponse httpResponse = null;
 
 				
 			try {
-				httpResponse = httpClient.execute(httpPost1);
+				httpResponse = httpClient.execute(httpPost);
 				HttpEntity httpEntity = httpResponse.getEntity();
 				is = httpEntity.getContent();
 			} catch (ClientProtocolException e) {
 				// TODO Auto-generated catch block
-				Log.e("ERREUR", "SERVEUR1 INTROUVABLE");
-				httpResponse = httpClient.execute(httpPost2);
-				HttpEntity httpEntity = httpResponse.getEntity();
-				is = httpEntity.getContent();
+				Log.e("ERREUR", "SERVEUR INTROUVABLE");
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
-				Log.e("ERREUR", "SERVEUR1 INTROUVABLE");
-				httpResponse = httpClient.execute(httpPost2);
-				HttpEntity httpEntity = httpResponse.getEntity();
-				is = httpEntity.getContent();
+				Log.e("ERREUR", "SERVEUR INTROUVABLE");
+
 			}
 			
 		

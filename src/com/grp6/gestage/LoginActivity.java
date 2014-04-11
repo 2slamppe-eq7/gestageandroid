@@ -34,10 +34,10 @@ public class LoginActivity extends Activity {
 	private static String KEY_SUCCESS = "success";
 	private static String KEY_ERROR = "error";
 	private static String KEY_ERROR_MSG = "error_msg";
-	private static String KEY_ID = "PER_ID";
-	private static String KEY_NOM = "PER_NOM";
-	private static String KEY_PRENOM = "PER_PRENOM";
-	private static String KEY_EMAIL = "EMP_EMAIL";
+	private static String KEY_ID = "idPersonne";
+	private static String KEY_NOM = "nom";
+	private static String KEY_PRENOM = "prenom";
+	private static String KEY_EMAIL = "login";
 	private static String KEY_CREATED_AT = "created_at";
 
 	
@@ -84,7 +84,7 @@ public class LoginActivity extends Activity {
 		protected Void doInBackground(Void... arg0) {
 			String email = inputLogin.getText().toString();
 			String password = inputPassword.getText().toString();
-			personneF = new PersonneF(getApplicationContext());
+			personneF = new PersonneF();
 			Log.d("Button", "Login");
 			try {
 				json = personneF.connexionEmploye(email, password);
@@ -124,7 +124,7 @@ public class LoginActivity extends Activity {
 									// user successfully logged in
 									// Store user details in SQLite Database
 									DatabaseHandler db = new DatabaseHandler(getApplicationContext());
-									JSONObject json_user = json.getJSONObject("employe");
+									JSONObject json_user = json.getJSONObject("personne");
 									
 									// Clear all previous data in database
 									personneF.logoutUser(getApplicationContext());
