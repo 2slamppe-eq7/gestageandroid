@@ -21,6 +21,7 @@ import android.widget.ListView;
 
 import com.grp6.gestage.fonction.PersonneF;
 import com.grp6.gestage.fragment.AccueilFragment;
+import com.grp6.gestage.fragment.StageFragment;
 import com.grp6.gestage.library.NavDrawerItem;
 import com.grp6.gestage.library.NavDrawerListAdapter;
 
@@ -73,13 +74,13 @@ public class MainActivity extends Activity{
 		// Find People
 		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
 		// Photos
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
+	//	navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
 		// Communities, Will add a counter here
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
+		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
 		// Pages
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
+		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 		// What's hot, We  will add a counter here
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
+	//	navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
 		// Recycle the typed array
 		navMenuIcons.recycle();
 
@@ -184,7 +185,9 @@ public class MainActivity extends Activity{
 		case 0:
 			fragment = new AccueilFragment();
 			break;
-	
+		case 1:
+			fragment = new StageFragment();
+			break;
 	
 		default:
 			break;
