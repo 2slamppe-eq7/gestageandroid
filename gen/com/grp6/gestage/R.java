@@ -20,11 +20,8 @@ public final class R {
     public static final class attr {
     }
     public static final class color {
-        public static final int bleu_s3a_1=0x7f040006;
         public static final int counter_text_bg=0x7f040004;
         public static final int counter_text_color=0x7f040005;
-        public static final int gris_s3a_1=0x7f040007;
-        public static final int gris_s3a_2=0x7f040008;
         public static final int list_background=0x7f040001;
         public static final int list_background_pressed=0x7f040002;
         public static final int list_divider=0x7f040003;
@@ -60,23 +57,27 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f090005;
-        public static final int btnConnection=0x7f090008;
+        public static final int btnConnection=0x7f09000c;
         public static final int counter=0x7f090002;
-        public static final int drawer_layout=0x7f09000a;
-        public static final int etLogin=0x7f090006;
-        public static final int etPassword=0x7f090007;
-        public static final int frame_container=0x7f09000b;
+        public static final int drawer_layout=0x7f09000e;
+        public static final int etLogin=0x7f09000a;
+        public static final int etPassword=0x7f09000b;
+        public static final int frame_container=0x7f09000f;
         public static final int icon=0x7f090000;
-        public static final int list_slidermenu=0x7f09000c;
+        public static final int listView1=0x7f090009;
+        public static final int list_slidermenu=0x7f090010;
+        public static final int spAnnee=0x7f090006;
+        public static final int spClasse=0x7f090008;
+        public static final int spFiliere=0x7f090007;
         public static final int title=0x7f090001;
         public static final int twBienvenue=0x7f090004;
-        public static final int twError=0x7f090009;
+        public static final int twError=0x7f09000d;
         public static final int txtLabel=0x7f090003;
     }
     public static final class layout {
         public static final int drawer_list_item=0x7f030000;
         public static final int fragment_accueil=0x7f030001;
-        public static final int menu=0x7f030002;
+        public static final int fragment_stage=0x7f030002;
         public static final int vue_connexion=0x7f030003;
         public static final int vue_principal=0x7f030004;
     }

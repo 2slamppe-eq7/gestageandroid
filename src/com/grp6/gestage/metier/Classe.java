@@ -12,39 +12,33 @@ package com.grp6.gestage.metier;
 public class Classe {
 
 	private int numClasse;
-	private int idSpecialite;
+	private Specialite specialite;
 	private String nomClasse;
-	
-	public Classe(int numClasse, int idSpecialite, String nomClasse) {
+	public Classe(int numClasse, Specialite specialite, String nomClasse) {
 		super();
 		this.numClasse = numClasse;
-		this.idSpecialite = idSpecialite;
+		this.specialite = specialite;
 		this.nomClasse = nomClasse;
 	}
-
 	public int getNumClasse() {
 		return numClasse;
 	}
-
 	public void setNumClasse(int numClasse) {
 		this.numClasse = numClasse;
 	}
-
-	public int getIdSpecialite() {
-		return idSpecialite;
+	public Specialite getSpecialite() {
+		return specialite;
 	}
-
-	public void setIdSpecialite(int idSpecialite) {
-		this.idSpecialite = idSpecialite;
+	public void setSpecialite(Specialite specialite) {
+		this.specialite = specialite;
 	}
-
 	public String getNomClasse() {
 		return nomClasse;
 	}
-
 	public void setNomClasse(String nomClasse) {
 		this.nomClasse = nomClasse;
 	}
+	
 	
 	
 	
