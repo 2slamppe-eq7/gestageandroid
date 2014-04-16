@@ -18,6 +18,7 @@ import com.grp6.gestage.metier.AnneeScol;
 import com.grp6.gestage.metier.Classe;
 import com.grp6.gestage.metier.Filiere;
 import com.grp6.gestage.metier.Personne;
+import com.grp6.gestage.metier.Stage;
 
 public class StageF  extends Config {
 
@@ -32,8 +33,8 @@ public class StageF  extends Config {
 	
 	
 	
-	public List<Classe> getSelected(String annee, int numFiliere) throws JSONException, IllegalStateException, IOException{
-		ArrayList<Classe> lesClasses = new ArrayList<Classe>();
+	public List<Stage> getSelected(String annee, int numFiliere) throws JSONException, IllegalStateException, IOException{
+		ArrayList<Stage> lesClasses = new ArrayList<Stage>();
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", "classe"));
@@ -45,7 +46,7 @@ public class StageF  extends Config {
 		JSONArray json_Classes = json.getJSONArray("filieres");
 		for (int i = 0; i < json_Classes.length(); i++) {
 			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
-			lesClasses.add(chargerUnEnregistrement((JSONObject) json_Classes.get(i)));
+			//lesClasses.add(chargerUnEnregistrement((JSONObject) json_Classes.get(i)));
 			//	lesChantiers.add(cat);
 			}
 	
