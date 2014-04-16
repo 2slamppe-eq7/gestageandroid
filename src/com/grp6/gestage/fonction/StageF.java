@@ -63,6 +63,13 @@ public class StageF  extends Config {
 			unStage.setDateFin((Date)json.get("dateFin"));
 			unStage.setDateDebut((Date)json.get("dateDebut"));
 			unStage.setDateVisiteStage((Date)json.get("dateVisiteStage"));
+			unStage.setBilanTravaux(json.getString("bilanTravaux"));
+			unStage.setCommentaires(json.getString("commentaires"));
+			unStage.setDivers(json.getString("divers"));
+			unStage.setParticipationCcf(json.getBoolean("participationCCF"));
+			unStage.setRessourcesOutils(json.getString("ressourcesOutils"));
+			JSONArray json_Organisation = json.getJSONArray("Organisation");
+			
 			
 		//	uneClasse.setSpecialite(idSpecialite)
 			

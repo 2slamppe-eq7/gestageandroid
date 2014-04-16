@@ -39,6 +39,7 @@ public class AnneeScolF  extends Config {
 		params.add(new BasicNameValuePair("fonc", "getAll"));
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		JSONArray json_annees = json.getJSONArray("annees");
+		
 		for (int i = 0; i < json_annees.length(); i++) {
 			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
 			lesAnneeScols.add(chargerUnEnregistrement((JSONObject) json_annees.get(i)));
