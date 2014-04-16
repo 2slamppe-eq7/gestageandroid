@@ -350,7 +350,7 @@ public class StageFragment extends Fragment {
 
 		StageF stageF = new StageF();
 			try {
-				lesStages = (ArrayList<Stage>) stageF.getSelected(anneeSelect, classeSelect);
+				lesStages = (ArrayList<Stage>) stageF.getSelected( classeSelect);
 			
 				error = false;
 
