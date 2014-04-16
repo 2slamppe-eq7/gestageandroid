@@ -2,6 +2,7 @@ package com.grp6.gestage.fonction;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.NameValuePair;
@@ -18,6 +19,7 @@ import com.grp6.gestage.metier.AnneeScol;
 import com.grp6.gestage.metier.Classe;
 import com.grp6.gestage.metier.Filiere;
 import com.grp6.gestage.metier.Personne;
+import com.grp6.gestage.metier.Stage;
 
 public class StageF  extends Config {
 
@@ -32,35 +34,35 @@ public class StageF  extends Config {
 	
 	
 	
-	public List<Classe> getSelected(String annee, int numFiliere) throws JSONException, IllegalStateException, IOException{
-		ArrayList<Classe> lesClasses = new ArrayList<Classe>();
+	public List<Stage> getSelected(int numClasse) throws JSONException, IllegalStateException, IOException{
+		ArrayList<Stage> lesStages = new ArrayList<Stage>();
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("tag", "classe"));
+		params.add(new BasicNameValuePair("tag", "stage"));
 		params.add(new BasicNameValuePair("fonc", "getSelected"));
-		params.add(new BasicNameValuePair("annee", annee));
-		params.add(new BasicNameValuePair("filiere",Integer.toString(numFiliere)));
+		params.add(new BasicNameValuePair("classe",Integer.toString(numClasse)));
 		
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
-		JSONArray json_Classes = json.getJSONArray("filieres");
-		for (int i = 0; i < json_Classes.length(); i++) {
+		JSONArray json_Stages = json.getJSONArray("stages");
+		for (int i = 0; i < json_Stages.length(); i++) {
 			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
-			lesClasses.add(chargerUnEnregistrement((JSONObject) json_Classes.get(i)));
+			lesStages.add(chargerUnEnregistrement((JSONObject) json_Stages.get(i)));
 			//	lesChantiers.add(cat);
 			}
 	
 	
-		return lesClasses;
+		return lesStages;
 	}
 
 	
-	private Classe chargerUnEnregistrement(JSONObject json){
-		Classe uneClasse = new Classe( 0, null, null);
+	private Stage chargerUnEnregistrement(JSONObject json){
+		Stage unStage = new Stage(0,null,null,null,null,null, null, null, null, null, null, null, false);
 		try {
 
-			uneClasse.setNumClasse(json.getInt("numClasse"));
-			uneClasse.setNomClasse(json.getString("nomClasse"));
-			
+			unStage.setNum_stage(json.getInt("numStage"));
+			unStage.setDateFin((Date)json.get("dateFin"));
+			unStage.setDateDebut((Date)json.get("dateDebut"));
+			unStage.setDateVisiteStage((Date)json.get("dateVisiteStage"));
 			
 		//	uneClasse.setSpecialite(idSpecialite)
 			
@@ -69,7 +71,7 @@ public class StageF  extends Config {
 			e.printStackTrace();
 		}
 		
-		return uneClasse;
+		return unStage;
 	}
 	
 }
