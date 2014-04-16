@@ -29,9 +29,11 @@ import com.grp6.gestage.R;
 import com.grp6.gestage.fonction.AnneeScolF;
 import com.grp6.gestage.fonction.ClasseF;
 import com.grp6.gestage.fonction.FiliereF;
+import com.grp6.gestage.fonction.StageF;
 import com.grp6.gestage.metier.AnneeScol;
 import com.grp6.gestage.metier.Classe;
 import com.grp6.gestage.metier.Filiere;
+import com.grp6.gestage.metier.Stage;
 
 
 public class StageFragment extends Fragment {
@@ -40,11 +42,13 @@ public class StageFragment extends Fragment {
 	private ArrayList<AnneeScol> lesAnnees = new ArrayList<AnneeScol>();
 	private ArrayList<Filiere> lesFilieres = new ArrayList<Filiere>();
 	private ArrayList<Classe> lesClasses = new ArrayList<Classe>();
+	private ArrayList<Stage> lesStages = new ArrayList<Stage>();
 	private Spinner spAnnee;
 	private Spinner spFiliere;
 	private Spinner spClasse;
 	private String anneeSelect=null;
 	private int filiereSelect=0;
+	private int classeSelect=0;
 	public StageFragment() {
 	}
 
@@ -97,6 +101,24 @@ public class StageFragment extends Fragment {
 				public void onNothingSelected(AdapterView<?> arg0) {
 					// TODO Auto-generated method stub
 					filiereSelect = 0;
+				}
+
+			});
+		 spClasse.setOnItemSelectedListener(new OnItemSelectedListener() {
+				
+				@Override
+				public void onItemSelected(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					// TODO Auto-generated method stub
+					classeSelect = lesClasses.get(arg2).getNumClasse();
+					new getStages().execute();
+				
+				}
+
+				@Override
+				public void onNothingSelected(AdapterView<?> arg0) {
+					// TODO Auto-generated method stub
+					classeSelect = 0;
 				}
 
 			});
@@ -310,5 +332,76 @@ public class StageFragment extends Fragment {
 		}
 
 	}
+	private class getStages extends AsyncTask<Void, Void, Void> {
 
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			pDialog = new ProgressDialog(getActivity());
+			pDialog.setMessage("Chargement...");
+			pDialog.setCancelable(false);
+			pDialog.show();
+
+		}
+
+		@Override
+		protected Void doInBackground(Void... arg0) {
+			// lesChantiers = new ArrayList<Chantier>();
+
+		StageF stageF = new StageF();
+			try {
+				lesStages = (ArrayList<Stage>) stageF.getSelected(classeSelect);
+			
+				error = false;
+
+			} catch (ConnectTimeoutException e) {
+				// TODO Auto-generated catch block
+				Log.e("CONNEXION", "pas de connexion au serveur");
+				error = true;
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				error = true;
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				error = true;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				error = true;
+			}
+			return null;
+
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			super.onPostExecute(result);
+			if (pDialog.isShowing())
+				pDialog.dismiss();
+			if (error == true) {
+				new AlertDialog.Builder(getActivity())
+						.setTitle("ERREUR")
+						.setMessage("Pas de connexion au serveur")
+						.setPositiveButton("OK",
+								new DialogInterface.OnClickListener() {
+									public void onClick(DialogInterface dialog,
+											int id) {
+										dialog.dismiss();
+										((MainActivity) getActivity()).goTo(
+												null, 0, 0, 0);
+									}
+								}).show();
+
+			} else {
+	
+		
+		
+				}
+			
+
+		}
+
+	}
 }

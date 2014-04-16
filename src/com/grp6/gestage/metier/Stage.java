@@ -26,7 +26,7 @@ public class Stage {
 	private String ressourcesOutils;
 	private String commentaires;
 	private boolean participationCcf;
-	
+
 	
 	public Stage(int num_stage, Organisation organisation, AnneeScol anneescol,
 			MaitreStage maitreStage, Date dateDebut, Date dateFin,
