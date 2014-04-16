@@ -16,6 +16,7 @@ public class Stage {
 	private int num_stage;
 	private Organisation organisation; 
 	private AnneeScol anneescol;
+	private Etudiant etudiant;
 	private MaitreStage maitreStage;
 	private Date dateDebut;
 	private Date dateFin; 
@@ -28,7 +29,7 @@ public class Stage {
 	private boolean participationCcf;
 
 	
-	public Stage(int num_stage, Organisation organisation, AnneeScol anneescol,
+	public Stage(int num_stage, Organisation organisation, AnneeScol anneescol,Etudiant etudiant,
 			MaitreStage maitreStage, Date dateDebut, Date dateFin,
 			Date dateVisiteStage, String ville, String divers,
 			String bilanTravaux, String ressourcesOutils, String commentaires,
@@ -37,6 +38,7 @@ public class Stage {
 		this.num_stage = num_stage;
 		this.organisation = organisation;
 		this.anneescol = anneescol;
+		this.etudiant = etudiant;
 		this.maitreStage = maitreStage;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
@@ -64,7 +66,7 @@ public class Stage {
 		return organisation;
 	}
 
-
+	
 	public void setOrganisation(Organisation organisation) {
 		this.organisation = organisation;
 	}
@@ -179,7 +181,14 @@ public class Stage {
 		this.participationCcf = participationCcf;
 	}
 	
-	
+	public Etudiant getEtudiant() {
+		return this.etudiant;
+	}
+
+
+	public void setEtudiant(Etudiant etudiant) {
+		this.etudiant = etudiant;
+	}
 	
 	
 	
