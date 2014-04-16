@@ -51,7 +51,7 @@ public class StageListAdapter extends BaseAdapter {
 
 
 		txtNumStage.setText(lesStages.get(position).getNum_stage()+"");
-	//	txtEtudiant.setText(lesStages.get(position).get)
+		txtEtudiant.setText(lesStages.get(position).getEtudiant().getNom());
 	
 	
 		return convertView;

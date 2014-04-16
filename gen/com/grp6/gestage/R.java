@@ -64,8 +64,8 @@ public final class R {
         public static final int etPassword=0x7f09000d;
         public static final int frame_container=0x7f090011;
         public static final int icon=0x7f090000;
-        public static final int listView1=0x7f090009;
         public static final int list_slidermenu=0x7f090012;
+        public static final int lvStage=0x7f090009;
         public static final int spAnnee=0x7f090006;
         public static final int spClasse=0x7f090008;
         public static final int spFiliere=0x7f090007;

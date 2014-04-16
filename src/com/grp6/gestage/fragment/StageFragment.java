@@ -20,7 +20,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
 
@@ -30,6 +29,7 @@ import com.grp6.gestage.fonction.AnneeScolF;
 import com.grp6.gestage.fonction.ClasseF;
 import com.grp6.gestage.fonction.FiliereF;
 import com.grp6.gestage.fonction.StageF;
+import com.grp6.gestage.library.StageListAdapter;
 import com.grp6.gestage.metier.AnneeScol;
 import com.grp6.gestage.metier.Classe;
 import com.grp6.gestage.metier.Filiere;
@@ -46,6 +46,7 @@ public class StageFragment extends Fragment {
 	private Spinner spAnnee;
 	private Spinner spFiliere;
 	private Spinner spClasse;
+	private ListView lvStage;
 	private String anneeSelect=null;
 	private int filiereSelect=0;
 	private int classeSelect=0;
@@ -64,6 +65,7 @@ public class StageFragment extends Fragment {
 					.findViewById(R.id.spFiliere);
 		 spClasse = (Spinner) rootView
 					.findViewById(R.id.spClasse);
+		 lvStage = (ListView) rootView.findViewById(R.id.lvStage);
 		 spAnnee.setOnItemSelectedListener(new OnItemSelectedListener() {
 			
 				@Override
@@ -125,6 +127,11 @@ public class StageFragment extends Fragment {
 
 		new getAnnees().execute();
 		return rootView;
+	}
+	private void chargerListStages(){
+		StageListAdapter dataAdapter = new StageListAdapter(
+				getActivity(), lesStages);
+		lvStage.setAdapter(dataAdapter);
 	}
 	private void chargerListAnnees(){
 
@@ -395,7 +402,7 @@ public class StageFragment extends Fragment {
 								}).show();
 
 			} else {
-	
+				 chargerListStages();
 		
 		
 				}
