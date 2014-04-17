@@ -15,7 +15,7 @@ public class Etudiant extends Personne{
 	private Classe classe;
 
 	public Etudiant(int idpersonne, String civilite, String nom, String prenom,
-			int numTel, String adresseMail, int numMobile,
+			String numTel, String adresseMail, String numMobile,
 			String loginUtilisateur, String mdp, Classe classe) {
 		super(idpersonne, civilite, nom, prenom, numTel, adresseMail,
 				numMobile, loginUtilisateur, mdp);

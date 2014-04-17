@@ -12,7 +12,7 @@ package com.grp6.gestage.metier;
 public class Professeur extends Personne{
 
 	public Professeur(int idpersonne, String civilite, String nom,
-			String prenom, int numTel, String adresseMail, int numMobile,
+			String prenom, String numTel, String adresseMail, String numMobile,
 			String loginUtilisateur, String mdp) {
 		super(idpersonne, civilite, nom, prenom, numTel, adresseMail, numMobile,
 				loginUtilisateur, mdp);

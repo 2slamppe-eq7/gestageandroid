@@ -16,15 +16,15 @@ public class Personne {
 	private String civilite;
 	private String nom;
 	private String prenom;
-	private int numTel;
+	private String numTel;
 	private String adresseMail; 
-	private int numMobile; 
+	private String numMobile; 
 	private String loginUtilisateur;
 	private String mdp;
 	
 	
 	public Personne(int idpersonne, String civilite, String nom, String prenom,
-			int numTel, String adresseMail, int numMobile,
+			String numTel, String adresseMail, String numMobile,
 			String loginUtilisateur, String mdp) {
 		super();
 		this.idpersonne = idpersonne;
@@ -68,10 +68,10 @@ public class Personne {
 	public void setPrenom(String prenom) {
 		this.prenom = prenom;
 	}
-	public int getNumTel() {
+	public String getNumTel() {
 		return numTel;
 	}
-	public void setNumTel(int numTel) {
+	public void setNumTel(String numTel) {
 		this.numTel = numTel;
 	}
 	public String getAdresseMail() {
@@ -80,10 +80,10 @@ public class Personne {
 	public void setAdresseMail(String adresseMail) {
 		this.adresseMail = adresseMail;
 	}
-	public int getNumMobile() {
+	public String getNumMobile() {
 		return numMobile;
 	}
-	public void setNumMobile(int numMobile) {
+	public void setNumMobile(String numMobile) {
 		this.numMobile = numMobile;
 	}
 	public String getLoginUtilisateur() {

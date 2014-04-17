@@ -55,7 +55,7 @@ public class ClasseF  extends Config {
 	}
 
 	
-	private Classe chargerUnEnregistrement(JSONObject json){
+	public static Classe chargerUnEnregistrement(JSONObject json){
 		Classe uneClasse = new Classe( 0, null, null);
 		try {
 

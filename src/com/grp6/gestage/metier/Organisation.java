@@ -15,17 +15,18 @@ public class Organisation {
 	private int idOrganisation; 
 	private String nomOrganisation; 
 	private String villeOrganisation;
-	private int cpOrganisation;
-	private int telOrganisation;
-	private int faxOrganisation;
+	private String cpOrganisation;
+	private String telOrganisation;
+	private String faxOrganisation;
 	private String formeJuridique;
 	private String activite;
+	private String adresse;
 	
 	
 	
 	public Organisation(int idOrganisation, String nomOrganisation,
-			String villeOrganisation, int cpOrganisation, int telOrganisation,
-			int faxOrganisation, String formeJuridique, String activite) {
+			String villeOrganisation, String cpOrganisation, String telOrganisation,
+			String faxOrganisation,String adresse, String formeJuridique, String activite) {
 		super();
 		this.idOrganisation = idOrganisation;
 		this.nomOrganisation = nomOrganisation;
@@ -35,6 +36,7 @@ public class Organisation {
 		this.faxOrganisation = faxOrganisation;
 		this.formeJuridique = formeJuridique;
 		this.activite = activite;
+		this.adresse = adresse;
 	}
 
 
@@ -49,6 +51,15 @@ public class Organisation {
 		this.idOrganisation = idOrganisation;
 	}
 
+	public String getAdresse() {
+		return this.adresse;
+	}
+
+
+
+	public void setAdresse(String adresse) {
+		this.adresse = adresse;
+	}
 
 
 	public String getNomOrganisation() {
@@ -75,37 +86,37 @@ public class Organisation {
 
 
 
-	public int getCpOrganisation() {
+	public String getCpOrganisation() {
 		return cpOrganisation;
 	}
 
 
 
-	public void setCpOrganisation(int cpOrganisation) {
+	public void setCpOrganisation(String cpOrganisation) {
 		this.cpOrganisation = cpOrganisation;
 	}
 
 
 
-	public int getTelOrganisation() {
+	public String getTelOrganisation() {
 		return telOrganisation;
 	}
 
 
 
-	public void setTelOrganisation(int telOrganisation) {
+	public void setTelOrganisation(String telOrganisation) {
 		this.telOrganisation = telOrganisation;
 	}
 
 
 
-	public int getFaxOrganisation() {
+	public String getFaxOrganisation() {
 		return faxOrganisation;
 	}
 
 
 
-	public void setFaxOrganisation(int faxOrganisation) {
+	public void setFaxOrganisation(String faxOrganisation) {
 		this.faxOrganisation = faxOrganisation;
 	}
 

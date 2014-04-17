@@ -51,7 +51,7 @@ public class AnneeScolF  extends Config {
 	}
 
 	
-	private AnneeScol chargerUnEnregistrement(JSONObject json){
+	public static AnneeScol chargerUnEnregistrement(JSONObject json){
 		AnneeScol uneAnneeScol = new AnneeScol(null);
 		try {
 
