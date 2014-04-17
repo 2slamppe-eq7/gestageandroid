@@ -21,7 +21,17 @@ import android.widget.TextView;
 import com.grp6.gestage.fonction.PersonneF;
 import com.grp6.gestage.library.DatabaseHandler;
 
+/**
+ * Class LoginActivity - Ouvre activité Login si user non loggé
+ * 
+ * @author windows
+ *
+ */
 public class LoginActivity extends Activity {
+	
+	/**
+	 * Variable
+	 */
 	private Button btnLogin;
 	private Button btnLinkToRegister;
 	private EditText inputLogin;
@@ -44,32 +54,39 @@ public class LoginActivity extends Activity {
 	JSONObject json;
 	PersonneF personneF;
 	
+	/**
+	 * Method onCreate - Hérité de Activity
+	 * Se lance à l'appel de la classe
+	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.vue_connexion);
 
-		// Importing all assets like buttons, text fields
 		inputLogin = (EditText) findViewById(R.id.etLogin);
 		inputPassword = (EditText) findViewById(R.id.etPassword);
 		btnLogin = (Button) findViewById(R.id.btnConnection);
-	//	btnLinkToRegister = (Button) findViewById(R.id.btnLinkToRegisterScreen);
 		loginErrorMsg = (TextView) findViewById(R.id.twError);
-
-		// Login button Click Event
+		
 		btnLogin.setOnClickListener(new View.OnClickListener() {
-
 			public void onClick(View view) {
 				new Login().execute();
 			}
 		});
 
 	}
+	
 	/**
-	 * tache asynchrone pour se connecter
-	 * */
+	 * Class Login - Contient taches asynchrones pour se connecter
+	 * 
+	 * @author windows
+	 *
+	 */
 	private class Login extends AsyncTask<Void, Void, Void> {
-
+		
+		/**
+		 * Method onPreExecute - Charge l'icone de chargement
+		 */
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
@@ -80,6 +97,9 @@ public class LoginActivity extends Activity {
 
 		}
 
+		/**
+		 * Method doInBackground - Requete de test Login/Mdp
+		 */
 		@Override
 		protected Void doInBackground(Void... arg0) {
 			String email = inputLogin.getText().toString();
@@ -100,18 +120,18 @@ public class LoginActivity extends Activity {
 				// TODO Auto-generated catch block
 				error = true;
 			}
-			return null;
-		
-
-			
+			return null;	
 		}
 
+		/**
+		 * Method onPostExecute - Etablit une authentification sur l'application
+		 */
 		@Override
 		protected void onPostExecute(Void result) {
 			super.onPostExecute(result);
 			if (pDialog.isShowing())
 				pDialog.dismiss();
-			// check for login response
+		
 			if (error == true) {
 				loginErrorMsg.setText("Pas de connexion au serveur");
 				
@@ -128,14 +148,10 @@ public class LoginActivity extends Activity {
 									
 									// Clear all previous data in database
 									personneF.logoutUser(getApplicationContext());
-									// User utilisateur = new User(null, null, null, null, null, null);
-									
-									
 									db.addUser(json_user.getInt(KEY_ID),json_user.getString(KEY_NOM), json_user.getString(KEY_PRENOM), json_user.getString(KEY_EMAIL));						
 									
 									// Launch Dashboard Screen
 									Intent dashboard = new Intent(getApplicationContext(), MainActivity.class);
-								
 									dashboard.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 									startActivity(dashboard);
 									finish();

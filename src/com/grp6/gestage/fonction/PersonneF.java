@@ -15,26 +15,37 @@ import com.grp6.gestage.library.DatabaseHandler;
 import com.grp6.gestage.library.JSONParser;
 import com.grp6.gestage.metier.Personne;
 
+/**
+ * Class PersonneF
+ * 
+ * @author windows
+ *
+ */
 public class PersonneF  extends Config {
 
+	/**
+	 * Variable
+	 */
 	private JSONParser jsonParser;
-	
-	
 	private static String login_tag = "login";
 	private static String register_tag = "register";
 	
-	// constructor
+	/**
+	 * Constructor
+	 */
 	public PersonneF(  ){
 		jsonParser = new JSONParser( );
 	}
 	
 	/**
-	 * function make Login Request
-	 * @param email
+	 * Method connexionEmploye
+	 * 
+	 * @param login
 	 * @param password
-	 * @throws IOException 
-	 * @throws IllegalStateException 
-	 * */
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public JSONObject connexionEmploye(String login, String password) throws IllegalStateException, IOException{
 		// Building Parameters
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
@@ -47,12 +58,13 @@ public class PersonneF  extends Config {
 		// Log.e("JSON", json.toString());
 		return json;
 	}
-	
-
-	
+		
 	/**
-	 * Function get Login status
-	 * */
+	 * Method isUserLoggedIn
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public boolean isUserLoggedIn(Context context){
 		DatabaseHandler db = new DatabaseHandler(context);
 		int count = db.getRowCount();
@@ -64,15 +76,24 @@ public class PersonneF  extends Config {
 	}
 	
 	/**
-	 * Function to logout user
-	 * Reset Database
-	 * */
+	 * Method logoutUser
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public boolean logoutUser(Context context){
 		DatabaseHandler db = new DatabaseHandler(context);
 		db.resetTables();
 		return true;
 	}
 	
+	/**
+	 * Method getAll
+	 * 
+	 * @return
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public List<Personne> getAll() throws IllegalStateException, IOException{
 		ArrayList<Personne> lesPersonnes = new ArrayList<Personne>();
 		// Building Parameters
@@ -80,12 +101,16 @@ public class PersonneF  extends Config {
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		
 		lesPersonnes.add(chargerUnEnregistrement(json ));
-		// return json
-		// Log.e("JSON", json.toString());
+		// return un Json
 		return lesPersonnes;
 	}
 
-	
+	/**
+	 * Method chargerUnEnregistrement
+	 * 
+	 * @param json
+	 * @return
+	 */
 	private Personne chargerUnEnregistrement(JSONObject json){
 		Personne unPersonne = new Personne(0, null, null, null);
 		try {

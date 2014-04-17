@@ -25,8 +25,17 @@ import com.grp6.gestage.fragment.StageFragment;
 import com.grp6.gestage.library.NavDrawerItem;
 import com.grp6.gestage.library.NavDrawerListAdapter;
 
+/**
+ * Class MainActivity - Se lance au démarrage de l'application
+ * 
+ * @author windows
+ *
+ */
 public class MainActivity extends Activity{
 
+	/**
+	 * Variable
+	 */
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -45,87 +54,80 @@ public class MainActivity extends Activity{
 	private ArrayList<NavDrawerItem> navDrawerItems;
 	private NavDrawerListAdapter adapter;
 
+	/**
+	 * Method onCreate - Methode chargé au démarrage
+	 */
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		 personneF = new PersonneF();
-	        if(personneF.isUserLoggedIn(getApplicationContext())){
-		setContentView(R.layout.vue_principal);
+		personneF = new PersonneF();
+		if(personneF.isUserLoggedIn(getApplicationContext())){
+			setContentView(R.layout.vue_principal);
+			mTitle = mDrawerTitle = getTitle();
+
+			// load slide menu items
+			navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+
+			// nav drawer icons from resources
+			navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+
+			mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+			mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
+
+			navDrawerItems = new ArrayList<NavDrawerItem>();
+
+			// adding nav drawer items to array
+			// Home
+			navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
+			// Find People
+			navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+			// Recycle the typed array
+			navMenuIcons.recycle();
+
+			mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
+
+			// setting the nav drawer list adapter
+			adapter = new NavDrawerListAdapter(getApplicationContext(),navDrawerItems);
+			mDrawerList.setAdapter(adapter);
+
+			// enabling action bar app icon and behaving it as toggle button
+			getActionBar().setDisplayHomeAsUpEnabled(true);
 	
 
-        
-		mTitle = mDrawerTitle = getTitle();
-
-		// load slide menu items
-		navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
-
-		// nav drawer icons from resources
-		navMenuIcons = getResources()
-				.obtainTypedArray(R.array.nav_drawer_icons);
-
-		mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-		mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
-
-		navDrawerItems = new ArrayList<NavDrawerItem>();
-
-		// adding nav drawer items to array
-		// Home
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
-		// Find People
-		navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
-		// Photos
-	//	navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
-		// Communities, Will add a counter here
-		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
-		// Pages
-		//navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
-		// What's hot, We  will add a counter here
-	//	navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
-		// Recycle the typed array
-		navMenuIcons.recycle();
-
-		mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
-
-		// setting the nav drawer list adapter
-		adapter = new NavDrawerListAdapter(getApplicationContext(),
-				navDrawerItems);
-		mDrawerList.setAdapter(adapter);
-
-		// enabling action bar app icon and behaving it as toggle button
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-	//	getActionBar().setHomeButtonEnabled(true);
-
-		mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
+			mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, //nav menu toggle icon
 				R.string.app_name, // nav drawer open - description for accessibility
 				R.string.app_name // nav drawer close - description for accessibility
-		) {
-			public void onDrawerClosed(View view) {
-				getActionBar().setTitle(mTitle);
-				// calling onPrepareOptionsMenu() to show action bar icons
-				invalidateOptionsMenu();
-			}
+			) {
+			
+				public void onDrawerClosed(View view) {
+					getActionBar().setTitle(mTitle);
+					// calling onPrepareOptionsMenu() to show action bar icons
+					invalidateOptionsMenu();
+				}
+			
+				public void onDrawerOpened(View drawerView) {
+					getActionBar().setTitle(mDrawerTitle);
+					// calling onPrepareOptionsMenu() to hide action bar icons
+					invalidateOptionsMenu();
+				}
+			};
+			
+			mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-			public void onDrawerOpened(View drawerView) {
-				getActionBar().setTitle(mDrawerTitle);
-				// calling onPrepareOptionsMenu() to hide action bar icons
-				invalidateOptionsMenu();
+			if (savedInstanceState == null) {
+				// on first time display view for first nav item
+				displayView(0,0,0);
 			}
-		};
-		mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-		if (savedInstanceState == null) {
-			// on first time display view for first nav item
-			displayView(0,0,0);
+			
+		}else{
+			// user is not logged in show login screen
+			Intent login = new Intent(getApplicationContext(), LoginActivity.class);
+			login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(login);
+			// Closing dashboard screen
+			finish();
 		}
-	        }else{
-	        	// user is not logged in show login screen
-	        	Intent login = new Intent(getApplicationContext(), LoginActivity.class);
-	        	login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-	        	startActivity(login);
-	        	// Closing dashboard screen
-	        	finish();
-	        }
 	}
 
 	/**
@@ -150,6 +152,10 @@ public class MainActivity extends Activity{
 			}
 		}
 	}
+	
+	/**
+	 * Method onActivityResult
+	 */
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 	 // TODO Auto-generated method stub
@@ -157,26 +163,37 @@ public class MainActivity extends Activity{
 
 	 }
 
-
-
+	/**
+	 * Method onOptionsItemSelected
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// toggle nav drawer on selecting action bar app icon/title
 		if (mDrawerToggle.onOptionsItemSelected(item)) {
 			return true;
 		}
-
 			return super.onOptionsItemSelected(item);
-
 	}
 
+	/**
+	 * Method goTo - 
+	 * 
+	 * @param v
+	 * @param vue
+	 * @param idChantier
+	 * @param idInt
+	 */
 	public void goTo(View v,int vue, int idChantier, int idInt) {
 		displayView(vue,idChantier, idInt);
 	}
 	
 	/**
-	 * Diplaying fragment view for selected nav drawer list item
-	 * */
+	 * Method displayView - Displaying fragment view for selected nav drawer list item
+	 * 
+	 * @param position
+	 * @param idChantier
+	 * @param idInt
+	 */
 	private void displayView(int position, int idChantier, int idInt) {
 		// update the main content by replacing fragments
 		Fragment fragment = null;
@@ -195,10 +212,7 @@ public class MainActivity extends Activity{
 
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).addToBackStack( "tag" ).commit();
-
-			
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack( "tag" ).commit();
 			mDrawerList.setItemChecked(position, true);
 			mDrawerList.setSelection(position);
 			setTitle(navMenuTitles[position]);
@@ -210,18 +224,25 @@ public class MainActivity extends Activity{
 		}
 	}
 
+	/**
+	 * Method erreur - Renvoi message si erreur connexion serveur
+	 */
 	public  void erreur() {
-    	new AlertDialog.Builder(this)
-	    .setTitle("ERREUR")
+    	new AlertDialog.Builder(this).setTitle("ERREUR")
 	    .setMessage("Pas de connexion au serveur")	
 	    .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-public void onClick(DialogInterface dialog, int id) {
-	dialog.dismiss();
 
-}
-})
-	     .show();
+	    	public void onClick(DialogInterface dialog, int id) {
+	    		dialog.dismiss();
+	    	}
+
+	    })
+	    .show();
 	}
+	
+	/**
+	 * 
+	 */
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;

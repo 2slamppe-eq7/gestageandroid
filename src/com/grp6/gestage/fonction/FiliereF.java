@@ -18,19 +18,34 @@ import com.grp6.gestage.metier.AnneeScol;
 import com.grp6.gestage.metier.Filiere;
 import com.grp6.gestage.metier.Personne;
 
+/**
+ * Class FiliereF
+ * 
+ * @author windows
+ *
+ */
 public class FiliereF  extends Config {
 
+	/**
+	 * Variable
+	 */
 	private JSONParser jsonParser;
-	
-	
 
-	// constructor
+	/**
+	 * Constructor
+	 */
 	public FiliereF( ){
 		jsonParser = new JSONParser( );
 	}
 	
-	
-	
+	/**
+	 * Method getAll
+	 * 
+	 * @return
+	 * @throws JSONException
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public List<Filiere> getAll() throws JSONException, IllegalStateException, IOException{
 		ArrayList<Filiere> lesFilieres = new ArrayList<Filiere>();
 		// Building Parameters
@@ -39,24 +54,26 @@ public class FiliereF  extends Config {
 		params.add(new BasicNameValuePair("fonc", "getAll"));
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		JSONArray json_Filieres = json.getJSONArray("filieres");
+		
 		for (int i = 0; i < json_Filieres.length(); i++) {
-			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
 			lesFilieres.add(chargerUnEnregistrement((JSONObject) json_Filieres.get(i)));
-			//	lesChantiers.add(cat);
 			}
-	
-	
+
 		return lesFilieres;
 	}
 
-	
+	/**
+	 * Method chargerUnEnregistrement
+	 * 
+	 * @param json
+	 * @return
+	 */
 	private Filiere chargerUnEnregistrement(JSONObject json){
 		Filiere uneFiliere = new Filiere(0, null);
 		try {
 
 			uneFiliere.setNumFiliere(json.getInt("numFiliere"));
-			uneFiliere.setLibelleFiliere(json.getString("libelleFiliere"));
-			
+			uneFiliere.setLibelleFiliere(json.getString("libelleFiliere"));		
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

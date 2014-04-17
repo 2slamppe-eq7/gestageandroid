@@ -17,20 +17,34 @@ import com.grp6.gestage.library.JSONParser;
 import com.grp6.gestage.metier.AnneeScol;
 import com.grp6.gestage.metier.Personne;
 
+/**
+ * Class AnneeScolF
+ * 
+ * @author windows
+ *
+ */
 public class AnneeScolF  extends Config {
 
+	/**
+	 * Variable
+	 */
 	private JSONParser jsonParser;
 	
-	
-
-	// constructor
+	/**
+	 * Constructor
+	 */
 	public AnneeScolF( ){
 		jsonParser = new JSONParser( );
 	}
 	
-	
-
-	
+	/**
+	 * Method getAll
+	 * 
+	 * @return
+	 * @throws JSONException
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public List<AnneeScol> getAll() throws JSONException, IllegalStateException, IOException{
 		ArrayList<AnneeScol> lesAnneeScols = new ArrayList<AnneeScol>();
 		// Building Parameters
@@ -41,22 +55,23 @@ public class AnneeScolF  extends Config {
 		JSONArray json_annees = json.getJSONArray("annees");
 		
 		for (int i = 0; i < json_annees.length(); i++) {
-			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
 			lesAnneeScols.add(chargerUnEnregistrement((JSONObject) json_annees.get(i)));
-			//	lesChantiers.add(cat);
 			}
-	
 	
 		return lesAnneeScols;
 	}
 
-	
+	/**
+	 * Method chargerUnEnregistrement
+	 * 
+	 * @param json
+	 * @return
+	 */
 	public static AnneeScol chargerUnEnregistrement(JSONObject json){
 		AnneeScol uneAnneeScol = new AnneeScol(null);
 		try {
 
 			uneAnneeScol.setAnneeScol(json.getString("annee"));
-
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

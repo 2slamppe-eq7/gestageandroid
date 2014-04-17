@@ -19,19 +19,34 @@ import com.grp6.gestage.metier.Classe;
 import com.grp6.gestage.metier.Filiere;
 import com.grp6.gestage.metier.Personne;
 
+/**
+ * Class ClasseF
+ * 
+ * @author windows
+ *
+ */
 public class ClasseF  extends Config {
 
 	private JSONParser jsonParser;
-	
-	
 
-	// constructor
+	/**
+	 * Constructor
+	 */
 	public ClasseF( ){
 		jsonParser = new JSONParser( );
 	}
 	
 	
-	
+	/**
+	 * Method getSelected
+	 * 
+	 * @param annee
+	 * @param numFiliere
+	 * @return
+	 * @throws JSONException
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public List<Classe> getSelected(String annee, int numFiliere) throws JSONException, IllegalStateException, IOException{
 		ArrayList<Classe> lesClasses = new ArrayList<Classe>();
 		// Building Parameters
@@ -43,27 +58,26 @@ public class ClasseF  extends Config {
 		
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		JSONArray json_Classes = json.getJSONArray("classes");
-		for (int i = 0; i < json_Classes.length(); i++) {
-			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
-			lesClasses.add(chargerUnEnregistrement((JSONObject) json_Classes.get(i)));
-			//	lesChantiers.add(cat);
-			}
-	
 		
-	
+		for (int i = 0; i < json_Classes.length(); i++) {
+			lesClasses.add(chargerUnEnregistrement((JSONObject) json_Classes.get(i)));
+			}
+
 		return lesClasses;
 	}
 
-	
+	/**
+	 * Method chargerUnEnregistrement
+	 * 
+	 * @param json
+	 * @return
+	 */
 	public static Classe chargerUnEnregistrement(JSONObject json){
 		Classe uneClasse = new Classe( 0, null, null);
 		try {
 
 			uneClasse.setNumClasse(json.getInt("numClasse"));
 			uneClasse.setNomClasse(json.getString("nomClasse"));
-			
-			
-		//	uneClasse.setSpecialite(idSpecialite)
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

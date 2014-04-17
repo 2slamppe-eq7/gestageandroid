@@ -24,19 +24,35 @@ import com.grp6.gestage.metier.Organisation;
 import com.grp6.gestage.metier.Personne;
 import com.grp6.gestage.metier.Stage;
 
+/**
+ * Class StageF
+ * 
+ * @author windows
+ *
+ */
 public class StageF  extends Config {
-
+	
+	/**
+	 * Variable
+	 */
 	private JSONParser jsonParser;
-	
-	
 
-	// constructor
+	/**
+	 * Constructor
+	 */
 	public StageF( ){
 		jsonParser = new JSONParser( );
 	}
 	
-	
-	
+	/**
+	 * Method getSelected
+	 * 
+	 * @param numClasse
+	 * @return
+	 * @throws JSONException
+	 * @throws IllegalStateException
+	 * @throws IOException
+	 */
 	public List<Stage> getSelected(int numClasse) throws JSONException, IllegalStateException, IOException{
 		ArrayList<Stage> lesStages = new ArrayList<Stage>();
 		// Building Parameters
@@ -48,16 +64,18 @@ public class StageF  extends Config {
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		JSONArray json_Stages = json.getJSONArray("stages");
 		for (int i = 0; i < json_Stages.length(); i++) {
-			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
 			lesStages.add(chargerUnEnregistrement((JSONObject) json_Stages.get(i)));
-			//	lesChantiers.add(cat);
 			}
-	
-	
+		
 		return lesStages;
 	}
 
-	
+	/**
+	 * Method chargerUnEnregistrement
+	 * 
+	 * @param json
+	 * @return
+	 */
 	private Stage chargerUnEnregistrement(JSONObject json){
 		Stage unStage = new Stage(0,null,null,null,null,null,null, null, null, null, null, null, null, false);
 		try {
@@ -76,7 +94,7 @@ public class StageF  extends Config {
 			JSONArray json_Etudiant = json.getJSONArray("etudiant");
 			JSONArray json_MaitreStage = json.getJSONArray("maitreStage");
 			JSONArray json_anneeScol = json.getJSONArray("anneeScol");
-		
+			
 			AnneeScol uneAnneeScol = AnneeScolF.chargerUnEnregistrement(json_anneeScol.getJSONObject(0));
 			unStage.setAnneescol(uneAnneeScol);
 			Etudiant unEtudiant = EtudiantF.chargerUnEnregistrement(json_Etudiant.getJSONObject(0));
