@@ -1,6 +1,7 @@
 package com.grp6.gestage.fonction;
 
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,35 +25,19 @@ import com.grp6.gestage.metier.Organisation;
 import com.grp6.gestage.metier.Personne;
 import com.grp6.gestage.metier.Stage;
 
-/**
- * Class StageF
- * 
- * @author windows
- *
- */
 public class StageF  extends Config {
-	
-	/**
-	 * Variable
-	 */
-	private JSONParser jsonParser;
 
-	/**
-	 * Constructor
-	 */
+	private JSONParser jsonParser;
+	
+	
+
+	// constructor
 	public StageF( ){
 		jsonParser = new JSONParser( );
 	}
 	
-	/**
-	 * Method getSelected
-	 * 
-	 * @param numClasse
-	 * @return
-	 * @throws JSONException
-	 * @throws IllegalStateException
-	 * @throws IOException
-	 */
+	
+	
 	public List<Stage> getSelected(int numClasse) throws JSONException, IllegalStateException, IOException{
 		ArrayList<Stage> lesStages = new ArrayList<Stage>();
 		// Building Parameters
@@ -64,44 +49,49 @@ public class StageF  extends Config {
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		JSONArray json_Stages = json.getJSONArray("stages");
 		for (int i = 0; i < json_Stages.length(); i++) {
+			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
 			lesStages.add(chargerUnEnregistrement((JSONObject) json_Stages.get(i)));
+			//	lesChantiers.add(cat);
 			}
-		
+	
+	
 		return lesStages;
 	}
 
-	/**
-	 * Method chargerUnEnregistrement
-	 * 
-	 * @param json
-	 * @return
-	 */
+	
 	private Stage chargerUnEnregistrement(JSONObject json){
 		Stage unStage = new Stage(0,null,null,null,null,null,null, null, null, null, null, null, null, false);
 		try {
 
 			unStage.setNum_stage(json.getInt("numStage"));
-			unStage.setDateFin((Date)json.get("dateFin"));
-			unStage.setDateDebut((Date)json.get("dateDebut"));
-			unStage.setDateVisiteStage((Date)json.get("dateVisiteStage"));
+			try {
+				unStage.setDateFin(sdf.parse(json.getString("dateFin")));
+				unStage.setDateDebut(sdf.parse(json.getString("dateDebut")));
+				unStage.setDateVisiteStage(sdf.parse(json.getString("dateVisite")));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
 			unStage.setBilanTravaux(json.getString("bilanTravaux"));
 			unStage.setCommentaires(json.getString("commentaires"));
 			unStage.setDivers(json.getString("divers"));
 			unStage.setVille(json.getString("ville"));
-			unStage.setParticipationCcf(json.getBoolean("participationCCF"));
+			//unStage.setParticipationCcf(json.getBoolean("participationCCF"));
 			unStage.setRessourcesOutils(json.getString("ressourcesOutils"));
-			JSONArray json_Organisation = json.getJSONArray("organisation");
-			JSONArray json_Etudiant = json.getJSONArray("etudiant");
-			JSONArray json_MaitreStage = json.getJSONArray("maitreStage");
-			JSONArray json_anneeScol = json.getJSONArray("anneeScol");
-			
-			AnneeScol uneAnneeScol = AnneeScolF.chargerUnEnregistrement(json_anneeScol.getJSONObject(0));
+			JSONObject json_Organisation = json.getJSONObject("organisation");
+			JSONObject json_Etudiant = json.getJSONObject("etudiant");
+			JSONObject json_MaitreStage = json.getJSONObject("maitreStage");
+			JSONObject json_anneeScol = json.getJSONObject("anneeScol");
+		
+			AnneeScol uneAnneeScol = AnneeScolF.chargerUnEnregistrement(json_anneeScol);
 			unStage.setAnneescol(uneAnneeScol);
-			Etudiant unEtudiant = EtudiantF.chargerUnEnregistrement(json_Etudiant.getJSONObject(0));
+			Etudiant unEtudiant = EtudiantF.chargerUnEnregistrement(json_Etudiant);
 			unStage.setEtudiant(unEtudiant);
-			MaitreStage unMaitreStage = MaitreStageF.chargerUnEnregistrement(json_MaitreStage.getJSONObject(0));
+			MaitreStage unMaitreStage = MaitreStageF.chargerUnEnregistrement(json_MaitreStage);
 			unStage.setMaitreStage(unMaitreStage);
-			Organisation uneOrganisation = OrganisationF.chargerUnEnregistrement(json_Organisation.getJSONObject(0));
+			Organisation uneOrganisation = OrganisationF.chargerUnEnregistrement(json_Organisation);
 			unStage.setOrganisation(uneOrganisation);
 			
 		} catch (JSONException e) {
