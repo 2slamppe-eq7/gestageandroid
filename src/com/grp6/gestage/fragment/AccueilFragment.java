@@ -8,6 +8,8 @@ import com.grp6.gestage.library.DatabaseHandler;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Fragment;
+import android.content.Context;
+import android.graphics.Typeface;
 import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +24,7 @@ import android.widget.TextView;
 public class AccueilFragment extends Fragment {
 
 	private TextView bienvenue;
+	private TextView menu;
 	private ImageView imageView2;
 
 	public AccueilFragment() {
@@ -34,10 +37,15 @@ public class AccueilFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_accueil, container,
 				false);
 		bienvenue = (TextView) rootView.findViewById(R.id.twBienvenue);
+		menu = (TextView)rootView.findViewById(R.id.twMenu);
 		DatabaseHandler db = new DatabaseHandler(getActivity());
 		HashMap<String, String> user = db.getUserDetails();
 		bienvenue.setText("Bienvenue " + user.get("prenom") + " "
-				+ user.get("nom"));
+				+ user.get("nom"));		
+		Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "chalkboard.ttf");
+		bienvenue.setTypeface(font);
+		menu.setTypeface(font);
+
 
 		return rootView;
 	}
