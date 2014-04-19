@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -66,6 +67,14 @@ public class StageFragment extends Fragment {
 		 spClasse = (Spinner) rootView
 					.findViewById(R.id.spClasse);
 		 lvStage = (ListView) rootView.findViewById(R.id.lvStage);
+		 lvStage.setOnItemClickListener(new OnItemClickListener() {
+
+				@Override
+				public void onItemClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					modifStage(lesStages.get(position));
+				}
+			});
 		 spAnnee.setOnItemSelectedListener(new OnItemSelectedListener() {
 			
 				@Override
@@ -128,6 +137,29 @@ public class StageFragment extends Fragment {
 		new getAnnees().execute();
 		return rootView;
 	}
+	
+	private void modifStage(final Stage stage){
+		new AlertDialog.Builder(getActivity())
+		.setTitle("Modification")
+		.setMessage("Voulez-vous modidifiez le stage de :"+stage.getEtudiant().getPrenom()+" "+stage.getEtudiant().getNom())
+		.setPositiveButton("OK",
+				new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int id) {
+						dialog.dismiss();
+						((MainActivity) getActivity()).goTo(
+								null, 11, stage.getNum_stage());
+					}
+				}).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog,
+							int id) {
+						dialog.dismiss();
+					}
+				}).show();
+		
+
+	}
+	
 	private void chargerListStages(){
 		StageListAdapter dataAdapter = new StageListAdapter(
 				getActivity(), lesStages);
@@ -253,7 +285,7 @@ public class StageFragment extends Fragment {
 											int id) {
 										dialog.dismiss();
 										((MainActivity) getActivity()).goTo(
-												null, 0, 0, 0);
+												null, 0, 0);
 									}
 								}).show();
 
@@ -325,7 +357,7 @@ public class StageFragment extends Fragment {
 											int id) {
 										dialog.dismiss();
 										((MainActivity) getActivity()).goTo(
-												null, 0, 0, 0);
+												null, 0, 0);
 									}
 								}).show();
 
@@ -397,7 +429,7 @@ public class StageFragment extends Fragment {
 											int id) {
 										dialog.dismiss();
 										((MainActivity) getActivity()).goTo(
-												null, 0, 0, 0);
+												null, 0, 0);
 									}
 								}).show();
 

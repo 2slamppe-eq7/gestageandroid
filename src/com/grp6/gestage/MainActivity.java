@@ -21,6 +21,7 @@ import android.widget.ListView;
 
 import com.grp6.gestage.fonction.PersonneF;
 import com.grp6.gestage.fragment.AccueilFragment;
+import com.grp6.gestage.fragment.ModifStageFragment;
 import com.grp6.gestage.fragment.StageFragment;
 import com.grp6.gestage.library.NavDrawerItem;
 import com.grp6.gestage.library.NavDrawerListAdapter;
@@ -117,7 +118,7 @@ public class MainActivity extends Activity{
 
 			if (savedInstanceState == null) {
 				// on first time display view for first nav item
-				displayView(0,0,0);
+				displayView(0, 0);
 			}
 			
 		}else{
@@ -148,7 +149,7 @@ public class MainActivity extends Activity{
 	        	finish();
 				
 			}else{
-			displayView(position,0,0);
+			displayView(position, 0);
 			}
 		}
 	}
@@ -183,18 +184,18 @@ public class MainActivity extends Activity{
 	 * @param idChantier
 	 * @param idInt
 	 */
-	public void goTo(View v,int vue, int idChantier, int idInt) {
-		displayView(vue,idChantier, idInt);
+	public void goTo(View v,int vue, int arg) {
+		displayView(vue, arg);
 	}
 	
 	/**
 	 * Method displayView - Displaying fragment view for selected nav drawer list item
 	 * 
 	 * @param position
-	 * @param idChantier
-	 * @param idInt
+	 * @param arg 
+
 	 */
-	private void displayView(int position, int idChantier, int idInt) {
+	private void displayView(int position, int arg) {
 		// update the main content by replacing fragments
 		Fragment fragment = null;
 		Bundle args = new Bundle();
@@ -205,7 +206,11 @@ public class MainActivity extends Activity{
 		case 1:
 			fragment = new StageFragment();
 			break;
-	
+		case 3:
+			fragment = new ModifStageFragment();
+		    args.putInt("idStage", arg);
+		    fragment.setArguments(args);
+			break;
 		default:
 			break;
 		}

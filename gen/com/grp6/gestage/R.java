@@ -91,10 +91,11 @@ public final class R {
     public static final class layout {
         public static final int drawer_list_item=0x7f030000;
         public static final int fragment_accueil=0x7f030001;
-        public static final int fragment_stage=0x7f030002;
-        public static final int stage_list_item=0x7f030003;
-        public static final int vue_connexion=0x7f030004;
-        public static final int vue_principal=0x7f030005;
+        public static final int fragment_modifstage=0x7f030002;
+        public static final int fragment_stage=0x7f030003;
+        public static final int stage_list_item=0x7f030004;
+        public static final int vue_connexion=0x7f030005;
+        public static final int vue_principal=0x7f030006;
     }
     public static final class string {
         public static final int action_settings=0x7f060001;
