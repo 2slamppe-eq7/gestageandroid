@@ -206,9 +206,9 @@ public class MainActivity extends Activity{
 		case 1:
 			fragment = new StageFragment();
 			break;
-		case 3:
+		case 11:
 			fragment = new ModifStageFragment();
-		    args.putInt("idStage", arg);
+		    args.putInt("numStage", arg);
 		    fragment.setArguments(args);
 			break;
 		default:

@@ -49,13 +49,29 @@ public class StageF  extends Config {
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
 		JSONArray json_Stages = json.getJSONArray("stages");
 		for (int i = 0; i < json_Stages.length(); i++) {
-			//	JSONObject catObj = (JSONObject) json_chantier.get(i);
+		
 			lesStages.add(chargerUnEnregistrement((JSONObject) json_Stages.get(i)));
-			//	lesChantiers.add(cat);
+		
 			}
 	
 	
 		return lesStages;
+	}
+	public Stage getOne(int numStage) throws JSONException, IllegalStateException, IOException{
+		Stage unStage = new Stage(0, null, null, null, null, null, null, null, null, null, null, null, null, false);
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", "stage"));
+		params.add(new BasicNameValuePair("fonc", "getOne"));
+		params.add(new BasicNameValuePair("numstage",Integer.toString(numStage)));
+		
+		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+		JSONObject json_Stages = json.getJSONObject("stage");
+
+		unStage = chargerUnEnregistrement((JSONObject) json_Stages);
+		
+	
+		return unStage;
 	}
 
 	

@@ -34,7 +34,21 @@ public class OrganisationF  extends Config {
 	}
 	
 	
+	public List<Organisation> getAll() throws JSONException, IllegalStateException, IOException{
+		ArrayList<Organisation> lesOrganisations = new ArrayList<Organisation>();
+		// Building Parameters
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", "organisation"));
+		params.add(new BasicNameValuePair("fonc", "getAll"));
+		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+		JSONArray json_organisations = json.getJSONArray("organisations");
+		
+		for (int i = 0; i < json_organisations.length(); i++) {
+			lesOrganisations.add(chargerUnEnregistrement((JSONObject) json_organisations.get(i)));
+			}
 	
+		return lesOrganisations;
+	}
 	public static Organisation chargerUnEnregistrement(JSONObject json){
 		Organisation uneOrganisation = new Organisation(0,null, null, null,null,null,null, null, null);
 		try {
