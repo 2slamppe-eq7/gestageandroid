@@ -140,7 +140,7 @@ public class MainActivity extends Activity{
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// display view for selected nav drawer item
-			if (position==5){
+			if (position==3){
 				personneF.logoutUser(getApplicationContext());
 				Intent login = new Intent(getApplicationContext(), LoginActivity.class);
 	        	login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
