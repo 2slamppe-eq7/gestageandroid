@@ -218,10 +218,15 @@ public class MainActivity extends Activity{
 		if (fragment != null) {
 			FragmentManager fragmentManager = getFragmentManager();
 			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack( "tag" ).commit();
+			if(position<2){
 			mDrawerList.setItemChecked(position, true);
 			mDrawerList.setSelection(position);
 			setTitle(navMenuTitles[position]);
 			mDrawerLayout.closeDrawer(mDrawerList);
+			}else{
+			//	mDrawerList.setSelection(null);
+			//	setTitle(mTitle);
+			}
 		
 		} else {
 			// error in creating fragment

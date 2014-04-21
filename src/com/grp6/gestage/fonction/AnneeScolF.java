@@ -71,7 +71,7 @@ public class AnneeScolF  extends Config {
 		AnneeScol uneAnneeScol = new AnneeScol(null);
 		try {
 
-			uneAnneeScol.setAnneeScol(json.getString("annee"));
+			uneAnneeScol.setAnneeScol(json.getString("anneeScol"));
 			
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block

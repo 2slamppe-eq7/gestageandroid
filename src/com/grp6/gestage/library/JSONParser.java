@@ -67,20 +67,13 @@ public class JSONParser {
 	
 			HttpResponse httpResponse = null;
 
-				
-			try {
+		
 				httpResponse = httpClient.execute(httpPost);
 				HttpEntity httpEntity = httpResponse.getEntity();
 				is = httpEntity.getContent();
-			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				Log.e("ERREUR", "SERVEUR INTROUVABLE");
 
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				Log.e("ERREUR", "SERVEUR INTROUVABLE");
 
-			}
+			
 			
 		
 		} catch (UnsupportedEncodingException e) {

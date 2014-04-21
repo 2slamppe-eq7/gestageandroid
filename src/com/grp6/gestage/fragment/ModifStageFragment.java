@@ -146,6 +146,7 @@ private class getStage extends AsyncTask<Void, Void, Void> {
 							}).show();
 
 		} else {
+			 chargeListeOrganisation();
 			chargerStage();
 	
 	
