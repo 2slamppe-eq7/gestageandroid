@@ -9,7 +9,7 @@
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@drawable/ic_home" />
+        android:src="@drawable/ic_accueil" />
 
     <TextView
         android:id="@+id/twBienvenue"
