@@ -51,7 +51,7 @@ public class ModifStageFragment extends Fragment {
 		 numStage = bundle.getInt("numStage"); 
 		 spOrganisation = (Spinner) rootView.findViewById(R.id.spOrganisation);
 	        
-	        
+	        new getStage().execute();
 		return rootView;
 	}
 	private void chargerStage(){

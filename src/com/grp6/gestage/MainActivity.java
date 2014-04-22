@@ -82,6 +82,8 @@ public class MainActivity extends Activity{
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
 			// Find People
 			navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
+			//Déco
+			navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
 			// Recycle the typed array
 			navMenuIcons.recycle();
 
@@ -140,7 +142,7 @@ public class MainActivity extends Activity{
 		public void onItemClick(AdapterView<?> parent, View view, int position,
 				long id) {
 			// display view for selected nav drawer item
-			if (position==3){
+			if (position==2){
 				personneF.logoutUser(getApplicationContext());
 				Intent login = new Intent(getApplicationContext(), LoginActivity.class);
 	        	login.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -13,6 +13,7 @@
     <string-array name="nav_drawer_items">
         <item>Accueil</item>
         <item>Stages</item>
+        <item>Déconnexion</item>
     </string-array>
 
     <!-- Nav Drawer List Item Icons -->
@@ -20,6 +21,7 @@
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
         <item>@drawable/ic_people</item>
+        <item>@drawable/ic_deconnexion</item>
     </array>
 
     <!-- Content Description -->

@@ -142,7 +142,7 @@ public class StageFragment extends Fragment {
 		new AlertDialog.Builder(getActivity())
 		.setTitle("Modification")
 		.setMessage("Voulez-vous modidifiez le stage de :"+stage.getEtudiant().getPrenom()+" "+stage.getEtudiant().getNom())
-		.setPositiveButton("OK",
+		.setPositiveButton("Oui",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int id) {
@@ -150,7 +150,7 @@ public class StageFragment extends Fragment {
 						((MainActivity) getActivity()).goTo(
 								null, 11, stage.getNum_stage());
 					}
-				}).setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+				}).setNegativeButton("Non", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog,
 							int id) {
 						dialog.dismiss();
