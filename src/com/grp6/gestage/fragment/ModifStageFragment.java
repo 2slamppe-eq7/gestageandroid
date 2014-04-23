@@ -94,7 +94,7 @@ public class ModifStageFragment extends Fragment {
 				@Override
 				public void onClick(View v) {
 					// TODO Auto-generated method stub
-					
+					 modifierStage();
 				}
 				});
 	        
