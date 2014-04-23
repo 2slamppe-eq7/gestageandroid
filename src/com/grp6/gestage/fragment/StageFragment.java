@@ -305,11 +305,12 @@ public class StageFragment extends Fragment {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
+			if(!pDialog.isShowing()){
 			pDialog = new ProgressDialog(getActivity());
 			pDialog.setMessage("Chargement...");
 			pDialog.setCancelable(false);
 			pDialog.show();
-
+			}
 		}
 
 		@Override

@@ -163,6 +163,7 @@ public class ModifStageFragment extends Fragment {
 		unStage.setDivers(etDivers.getText().toString());
 		unStage.setParticipationCcf(cbCCF.isChecked());
 		unStage.setRessourcesOutils(etRessource.getText().toString());
+		 new setStage().execute();
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			Log.e("ERREUR", "FORMAT DES DONNES INCORRECT");
