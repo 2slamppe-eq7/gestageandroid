@@ -74,7 +74,32 @@ public class StageF  extends Config {
 		return unStage;
 	}
 
-	
+	public boolean setOne(Stage unStage)throws JSONException, IllegalStateException, IOException {
+		List<NameValuePair> params = new ArrayList<NameValuePair>();
+		params.add(new BasicNameValuePair("tag", "stage"));
+		params.add(new BasicNameValuePair("fonc", "setOne"));
+		params.add(new BasicNameValuePair("num_stage",Integer.toString(unStage.getNum_stage())));
+		params.add(new BasicNameValuePair("organisation", Integer.toString(unStage.getOrganisation().getIdOrganisation())));
+		params.add(new BasicNameValuePair("dateDebut", sdf.format(unStage.getDateDebut())));
+		params.add(new BasicNameValuePair("dateFin", sdf.format(unStage.getDateFin())));
+		params.add(new BasicNameValuePair("dateVisiteStage", sdf.format(unStage.getDateVisiteStage())));
+		params.add(new BasicNameValuePair("divers", unStage.getDivers()));
+		params.add(new BasicNameValuePair("bilanTravaux", unStage.getBilanTravaux()));
+		params.add(new BasicNameValuePair("ressourcesOutils", unStage.getRessourcesOutils()));
+		params.add(new BasicNameValuePair("commentaires", unStage.getCommentaires()));
+		if(unStage.isParticipationCcf()){
+			params.add(new BasicNameValuePair("participationCcf", "1"));
+		}else{
+			params.add(new BasicNameValuePair("participationCcf", "0"));
+		}
+		
+		
+		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
+		//JSONArray json_Stages = json.getJSONArray("stage");
+		
+		boolean ok = json.getBoolean("succes");
+		return ok;
+	}
 	private Stage chargerUnEnregistrement(JSONObject json){
 		Stage unStage = new Stage(0,null,null,null,null,null,null, null, null, null, null, null, null, false);
 		try {
@@ -117,5 +142,9 @@ public class StageF  extends Config {
 		
 		return unStage;
 	}
+
+
+
+
 	
 }
