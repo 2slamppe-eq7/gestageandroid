@@ -60,6 +60,7 @@ public class ModifStageFragment extends Fragment {
 	private CheckBox cbCCF;
 	private TextView tvTitre;
 	private Button btnValider;
+	private Button btnAnnuler;
 
 	
 	private Calendar myCalendar = Calendar.getInstance();
@@ -86,6 +87,7 @@ public class ModifStageFragment extends Fragment {
 		 etCommentaire= (EditText) rootView.findViewById(R.id.etCommentaire);
 			  cbCCF = (CheckBox) rootView.findViewById(R.id.cbCCF);
 			  btnValider = (Button) rootView.findViewById(R.id.btnValider);
+			  btnAnnuler = (Button) rootView.findViewById(R.id.btnAnnuler);
 			  tvTitre = (TextView) rootView.findViewById(R.id.tvTitre);
 		 
 	        new getStage().execute();
@@ -97,7 +99,14 @@ public class ModifStageFragment extends Fragment {
 					 modifierStage();
 				}
 				});
-	        
+	        btnAnnuler.setOnClickListener(new OnClickListener(){
+
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						chargerStage();
+					}
+					});
 	        
 	        
 
