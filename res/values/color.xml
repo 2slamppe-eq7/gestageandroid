@@ -3,8 +3,9 @@
     <color name="list_item_title">#fff</color>
     <color name="list_background">#303030</color>
     <color name="list_background_pressed">#006abe</color>
-    <color name="list_divider">#272727</color>
+    <color name="list_divider">#6A6B70</color>
     <color name="counter_text_bg">#626262</color>
     <color name="counter_text_color">#c5c4c4</color>
-
+    <color name="list_stage_background">#FFFAE2</color>
+	<color name="list_stage_background_titre">#B8FAFF</color>
 </resources>

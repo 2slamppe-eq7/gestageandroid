@@ -51,6 +51,7 @@ public class StageFragment extends Fragment {
 	private String anneeSelect=null;
 	private int filiereSelect=0;
 	private int classeSelect=0;
+	
 	public StageFragment() {
 	}
 

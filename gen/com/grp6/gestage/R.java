@@ -26,6 +26,8 @@ public final class R {
         public static final int list_background_pressed=0x7f040002;
         public static final int list_divider=0x7f040003;
         public static final int list_item_title=0x7f040000;
+        public static final int list_stage_background=0x7f040006;
+        public static final int list_stage_background_titre=0x7f040007;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -60,38 +62,47 @@ public final class R {
     }
     public static final class id {
         public static final int LinearLayout1=0x7f090008;
-        public static final int btnConnection=0x7f09001d;
+        public static final int btnConnection=0x7f090026;
         public static final int counter=0x7f090002;
-        public static final int drawer_layout=0x7f09001f;
+        public static final int drawer_layout=0x7f090028;
         public static final int etDateDebut=0x7f09000c;
         public static final int etDateFin=0x7f09000e;
         public static final int etDateVisite=0x7f090010;
-        public static final int etLogin=0x7f09001b;
-        public static final int etPassword=0x7f09001c;
-        public static final int frame_container=0x7f090020;
+        public static final int etLogin=0x7f090024;
+        public static final int etPassword=0x7f090025;
+        public static final int frame_container=0x7f090029;
         public static final int horizontalView=0x7f090014;
         public static final int icon=0x7f090000;
         public static final int imageView1=0x7f090005;
         public static final int imageView2=0x7f090003;
         public static final int imageView3=0x7f090007;
-        public static final int list_slidermenu=0x7f090021;
-        public static final int lvStage=0x7f090015;
+        public static final int list_slidermenu=0x7f09002a;
+        public static final int lvStage=0x7f09001e;
         public static final int spAnnee=0x7f090011;
         public static final int spClasse=0x7f090013;
         public static final int spFiliere=0x7f090012;
         public static final int spOrganisation=0x7f09000a;
         public static final int title=0x7f090001;
         public static final int tvDateDebut=0x7f09000b;
+        public static final int tvDateDebutTitre=0x7f09001a;
         public static final int tvDateFin=0x7f09000d;
+        public static final int tvDateFinTitre=0x7f09001b;
         public static final int tvDateVisite=0x7f09000f;
-        public static final int tvEtudiantNom=0x7f090017;
-        public static final int tvEtudiantPrenom=0x7f090018;
-        public static final int tvMaitreStage=0x7f090019;
-        public static final int tvNumStage=0x7f090016;
+        public static final int tvDateVisiteTitre=0x7f09001c;
+        public static final int tvEtudiantNom=0x7f090020;
+        public static final int tvEtudiantNomTitre=0x7f090016;
+        public static final int tvEtudiantPrenom=0x7f090021;
+        public static final int tvEtudiantPrenomTitre=0x7f090017;
+        public static final int tvMaitreStage=0x7f090022;
+        public static final int tvMaitreStageTitre=0x7f090019;
+        public static final int tvNumStage=0x7f09001f;
+        public static final int tvNumStageTitre=0x7f090015;
         public static final int tvOrganisation=0x7f090009;
-        public static final int tvVille=0x7f09001a;
+        public static final int tvOrganisationTitre=0x7f090018;
+        public static final int tvVille=0x7f090023;
+        public static final int tvVilleTitre=0x7f09001d;
         public static final int twBienvenue=0x7f090004;
-        public static final int twError=0x7f09001e;
+        public static final int twError=0x7f090027;
         public static final int twMenu=0x7f090006;
     }
     public static final class layout {

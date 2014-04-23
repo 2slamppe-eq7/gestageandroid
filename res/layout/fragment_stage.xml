@@ -30,7 +30,6 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -43,19 +42,101 @@
     android:layout_width="match_parent"     
 >
         
-        <ListView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <LinearLayout
+     android:layout_width="wrap_content"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:divider="@color/list_divider"
+     android:background="@color/list_stage_background_titre" 
+     android:dividerHeight="1dp">
+
+     <TextView
+         android:id="@+id/tvNumStageTitre"
+         android:layout_width="130dp"
+         android:layout_height="wrap_content"
+         android:text="numéro"
+         android:textSize="30dp" />
+
+     <TextView
+         android:id="@+id/tvEtudiantNomTitre"
+         android:layout_width="250dp"
+         android:layout_height="wrap_content"
+         android:text="nom"
+         android:textSize="30dp" />
+
+     <TextView
+         android:id="@+id/tvEtudiantPrenomTitre"
+         android:layout_width="250dp"
+         android:layout_height="wrap_content"
+         android:text="prénom"
+         android:textSize="30dp" />
+
+     <TextView
+         android:id="@+id/tvOrganisationTitre"
+         android:layout_width="250dp"
+         android:layout_height="wrap_content"
+         android:text="organisation"
+         android:textSize="30dp" />
+
+     <TextView
+         android:id="@+id/tvMaitreStageTitre"
+         android:layout_width="250dp"
+         android:layout_height="wrap_content"
+         android:text="maitre de stage"
+         android:textSize="30dp" />
+
+     <TextView
+         android:id="@+id/tvDateDebutTitre"
+         android:layout_width="250dp"
+         android:layout_height="wrap_content"
+         android:text="date de début"
+         android:textSize="30dp" />
+
+     <TextView
+         android:id="@+id/tvDateFinTitre"
+         android:layout_width="250dp"
+         android:layout_height="wrap_content"
+         android:text="date de fin"
+         android:textSize="30dp" />
+
+     <TextView
+         android:id="@+id/tvDateVisiteTitre"
+         android:layout_width="250dp"
+         android:layout_height="wrap_content"
+         android:text="date de visite"
+         android:textSize="30dp" />
+
+     <TextView
+         android:id="@+id/tvVilleTitre"
+         android:layout_width="250dp"
+         android:layout_height="wrap_content"
+         android:text="ville"
+         
+         android:textSize="30dp" />
+ </LinearLayout>
+             <ListView
             android:id="@+id/lvStage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/list_background"
+            android:background="@color/list_stage_background"
             android:choiceMode="singleChoice"
             android:divider="@color/list_divider"
             android:dividerHeight="1dp"
             android:listSelector="@drawable/list_selector"
             android:scrollbars="horizontal|vertical" >
         </ListView>
+            
+        </LinearLayout>
         
 </HorizontalScrollView>
+
+ 
+
     </LinearLayout>
 
 </LinearLayout>
