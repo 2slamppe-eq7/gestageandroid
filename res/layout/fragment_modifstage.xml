@@ -8,6 +8,36 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/counter_text_color" >
+
+        <TextView
+            android:id="@+id/tvTitre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Stage"
+            android:textSize="@dimen/taille20" />
+
+        <Button
+            android:id="@+id/btnValider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Valider" />
+
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+               <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="horizontal" >
 
         <TextView
@@ -101,4 +131,119 @@
    
 
     </LinearLayout>
+            <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tvDivers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Divers : "
+            android:textSize="@dimen/taille30" />
+
+        <EditText
+            android:id="@+id/etDivers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:minLines="2"
+        >
+
+            <requestFocus />
+     </EditText>
+    </LinearLayout>
+                <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tvBilan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Bilan : "
+            android:textSize="@dimen/taille30" />
+
+        <EditText
+            android:id="@+id/etBilan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:minLines="2"
+         >
+
+            <requestFocus />
+     </EditText>
+    </LinearLayout>
+                 <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tvRessource"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ressources : "
+            android:textSize="@dimen/taille30" />
+
+        <EditText
+            android:id="@+id/etRessource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:minLines="2"
+          >
+
+            <requestFocus />
+     </EditText>
+    </LinearLayout>
+                     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tvCommentaire"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Commentaire : "
+            android:textSize="@dimen/taille30" />
+
+        <EditText
+            android:id="@+id/etCommentaire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:minLines="2"
+            >
+
+            <requestFocus />
+     </EditText>
+    </LinearLayout>
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tvCCF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Participation CCF : "
+            android:textSize="@dimen/taille30" />
+
+        <CheckBox
+            android:id="@+id/cbCCF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+           />
+
+   
+    </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+ 
 </LinearLayout>
