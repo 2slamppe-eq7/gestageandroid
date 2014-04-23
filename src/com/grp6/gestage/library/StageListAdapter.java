@@ -1,5 +1,6 @@
 package com.grp6.gestage.library;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -18,6 +19,7 @@ public class StageListAdapter extends BaseAdapter {
 
 	private Context context;
 	private ArrayList<Stage> lesStages;
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
 	public StageListAdapter(Context context, ArrayList<Stage> lesStages) {
 		this.context = context;
@@ -40,7 +42,7 @@ public class StageListAdapter extends BaseAdapter {
 	}
 
 	
-	@SuppressWarnings("deprecation")
+	
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		if (convertView == null) {
@@ -64,9 +66,9 @@ public class StageListAdapter extends BaseAdapter {
 		txtEtudiantPrenom.setText(lesStages.get(position).getEtudiant().getPrenom()+" ");
 		txtOrganisation.setText(lesStages.get(position).getOrganisation().getNomOrganisation()+" ");
 		txtMaitreStage.setText(lesStages.get(position).getMaitreStage().getNom()+"  "+lesStages.get(position).getMaitreStage().getPrenom()+" ");
-		txtDateDeb.setText(lesStages.get(position).getDateDebut().getDay()+"/"+lesStages.get(position).getDateDebut().getMonth()+"/"+lesStages.get(position).getDateDebut().getYear()+" ");
-		txtDateFin.setText(lesStages.get(position).getDateFin().getDay()+"/"+lesStages.get(position).getDateFin().getMonth()+"/"+lesStages.get(position).getDateFin().getYear()+" ");
-		txtDateVisite.setText(lesStages.get(position).getDateVisiteStage().getDay()+"/"+lesStages.get(position).getDateVisiteStage().getMonth()+"/"+lesStages.get(position).getDateVisiteStage().getYear()+" ");
+		txtDateDeb.setText(sdf.format(lesStages.get(position).getDateDebut()));
+		txtDateFin.setText(sdf.format(lesStages.get(position).getDateFin()));
+		txtDateVisite.setText(sdf.format(lesStages.get(position).getDateVisiteStage()));
 		txtVille.setText(lesStages.get(position).getVille());
 	
 		return convertView;
