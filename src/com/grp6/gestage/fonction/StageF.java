@@ -63,12 +63,12 @@ public class StageF  extends Config {
 		List<NameValuePair> params = new ArrayList<NameValuePair>();
 		params.add(new BasicNameValuePair("tag", "stage"));
 		params.add(new BasicNameValuePair("fonc", "getOne"));
-		params.add(new BasicNameValuePair("numstage",Integer.toString(numStage)));
+		params.add(new BasicNameValuePair("idStage",Integer.toString(numStage)));
 		
 		JSONObject json = jsonParser.getJSONFromUrl(URL, params);
-		JSONObject json_Stages = json.getJSONObject("stage");
+		JSONArray json_Stages = json.getJSONArray("stage");
 
-		unStage = chargerUnEnregistrement((JSONObject) json_Stages);
+		unStage = chargerUnEnregistrement((JSONObject) json_Stages.get(0));
 		
 	
 		return unStage;

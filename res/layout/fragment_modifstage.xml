@@ -14,14 +14,15 @@
             android:id="@+id/tvOrganisation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Organisation :"
+            android:text="Organisation : "
             android:textSize="@dimen/taille30" />
 
         <Spinner
             android:id="@+id/spOrganisation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:layout_weight="1" 
+            android:textSize="@dimen/taille30"/>
 
     </LinearLayout>
 
@@ -30,14 +31,18 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal" >
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/tvDateDebut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="Date Début : "
+            android:textSize="@dimen/taille30" />
+
         <EditText
-            android:id="@+id/editText1"
+            android:id="@+id/etDateDebut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:editable="false"
             android:ems="10" >
 
             <requestFocus />
@@ -46,5 +51,54 @@
    
 
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tvDateFin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Fin : "
+            android:textSize="@dimen/taille30" />
 
+        <EditText
+            android:id="@+id/etDateFin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:editable="false"
+            android:ems="10" >
+
+            <requestFocus />
+
+     </EditText>
+   
+
+    </LinearLayout>
+        <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+        <TextView
+            android:id="@+id/tvDateVisite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date Visite : "
+            android:textSize="@dimen/taille30" />
+
+        <EditText
+            android:id="@+id/etDateVisite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:editable="false"
+            android:ems="10" >
+
+            <requestFocus />
+
+     </EditText>
+   
+
+    </LinearLayout>
 </LinearLayout>

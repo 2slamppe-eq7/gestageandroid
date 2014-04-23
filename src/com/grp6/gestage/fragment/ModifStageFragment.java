@@ -1,13 +1,18 @@
 package com.grp6.gestage.fragment;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.http.conn.ConnectTimeoutException;
 import org.json.JSONException;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -16,8 +21,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.grp6.gestage.MainActivity;
@@ -37,7 +45,13 @@ public class ModifStageFragment extends Fragment {
 	private Stage unStage;
 	private ArrayList<Organisation> lesOrganisations = new ArrayList<Organisation>();
 	private Spinner spOrganisation;
-	
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	private EditText etDateFin;
+	private EditText etDateDebut;
+	private EditText etDateVisite;
+	private EditText etDate;
+	private Calendar myCalendar = Calendar.getInstance();
+	   
 	public ModifStageFragment() {
 	}
 
@@ -50,16 +64,71 @@ public class ModifStageFragment extends Fragment {
 		 Bundle bundle=getArguments(); 
 		 numStage = bundle.getInt("numStage"); 
 		 spOrganisation = (Spinner) rootView.findViewById(R.id.spOrganisation);
-	        
+		 
+		 etDateFin= (EditText) rootView.findViewById(R.id.etDateFin);
+			etDateDebut= (EditText) rootView.findViewById(R.id.etDateDebut);
+		 etDateVisite= (EditText) rootView.findViewById(R.id.etDateVisite);
+		 
 	        new getStage().execute();
+	     
+
+	        final DatePickerDialog.OnDateSetListener datepicker = new DatePickerDialog.OnDateSetListener() {
+
+				@Override
+				  public void onDateSet(DatePicker view, int year, int monthOfYear,
+		                    int dayOfMonth) {
+		                // TODO Auto-generated method stub
+		                myCalendar.set(Calendar.YEAR, year);
+		                myCalendar.set(Calendar.MONTH, monthOfYear);
+		                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+		                miseAJourDate();
+		            }
+
+	        };
+	     
+	        OnClickListener onDateClickListener = new OnClickListener() {
+
+	         
+
+				@Override
+				   public void onClick(View v) {
+	                // TODO Auto-generated method stub
+		
+					 etDate = (EditText) v;
+					try {
+						myCalendar.setTime(sdf.parse(etDate.getText().toString()));
+					//	Date uneDate 
+					//	Calendar.getInstance(sdf.parse(edDate.getText().toString()));
+					//	myCalendar= new Calensdf.parse(edDate.getText().toString());
+						new DatePickerDialog(getActivity(), datepicker, myCalendar
+		                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+		                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+						
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+	                
+	            }
+	        };
+	        etDateDebut.setOnClickListener(onDateClickListener);
+	        etDateFin.setOnClickListener(onDateClickListener);
+	        etDateVisite.setOnClickListener(onDateClickListener);
 		return rootView;
 	}
+	private void miseAJourDate(){
+		etDate.setText(sdf.format(myCalendar.getTime()));
+	}
+ 
 	private void chargerStage(){
 		for (int i = 0; i < lesOrganisations.size(); i++) {
 		if(lesOrganisations.get(i).getIdOrganisation()==unStage.getOrganisation().getIdOrganisation()){
 			spOrganisation.setSelection(i);
 		}
 		}
+		etDateFin.setText(sdf.format(unStage.getDateFin()));
+		etDateDebut.setText(sdf.format(unStage.getDateDebut()));
+		etDateVisite.setText(sdf.format(unStage.getDateVisiteStage()));
 	}
 	
 	private void chargeListeOrganisation(){
