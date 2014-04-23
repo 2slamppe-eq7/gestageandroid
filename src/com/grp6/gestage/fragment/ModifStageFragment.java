@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -50,6 +51,12 @@ public class ModifStageFragment extends Fragment {
 	private EditText etDateDebut;
 	private EditText etDateVisite;
 	private EditText etDate;
+	private EditText etDivers;
+	private EditText etBilan;
+	private EditText etRessource;
+	private EditText etCommentaire;
+	private CheckBox cbCCF;
+	
 	private Calendar myCalendar = Calendar.getInstance();
 	   
 	public ModifStageFragment() {
@@ -68,6 +75,11 @@ public class ModifStageFragment extends Fragment {
 		 etDateFin= (EditText) rootView.findViewById(R.id.etDateFin);
 			etDateDebut= (EditText) rootView.findViewById(R.id.etDateDebut);
 		 etDateVisite= (EditText) rootView.findViewById(R.id.etDateVisite);
+			 etDivers= (EditText) rootView.findViewById(R.id.etDivers);
+			 etBilan= (EditText) rootView.findViewById(R.id.etBilan);
+			 etRessource= (EditText) rootView.findViewById(R.id.etRessource);
+		 etCommentaire= (EditText) rootView.findViewById(R.id.etCommentaire);
+			  cbCCF = (CheckBox) rootView.findViewById(R.id.cbCCF);
 		 
 	        new getStage().execute();
 	     
@@ -129,6 +141,11 @@ public class ModifStageFragment extends Fragment {
 		etDateFin.setText(sdf.format(unStage.getDateFin()));
 		etDateDebut.setText(sdf.format(unStage.getDateDebut()));
 		etDateVisite.setText(sdf.format(unStage.getDateVisiteStage()));
+		etDivers.setText(unStage.getDivers());
+		etBilan.setText(unStage.getBilanTravaux());
+		 etRessource.setText(unStage.getRessourcesOutils());
+		  etCommentaire.setText(unStage.getCommentaires());
+		  cbCCF.setChecked(unStage.isParticipationCcf());
 	}
 	
 	private void chargeListeOrganisation(){
