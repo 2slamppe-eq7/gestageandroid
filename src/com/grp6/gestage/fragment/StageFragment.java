@@ -1,12 +1,5 @@
 package com.grp6.gestage.fragment;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.conn.ConnectTimeoutException;
-import org.json.JSONException;
-
 import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.ProgressDialog;
@@ -36,413 +29,426 @@ import com.grp6.gestage.metier.Classe;
 import com.grp6.gestage.metier.Filiere;
 import com.grp6.gestage.metier.Stage;
 
+import org.apache.http.conn.ConnectTimeoutException;
+import org.json.JSONException;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 
 public class StageFragment extends Fragment {
-	private ProgressDialog pDialog;
-	private boolean error;
-	private ArrayList<AnneeScol> lesAnnees = new ArrayList<AnneeScol>();
-	private ArrayList<Filiere> lesFilieres = new ArrayList<Filiere>();
-	private ArrayList<Classe> lesClasses = new ArrayList<Classe>();
-	private ArrayList<Stage> lesStages = new ArrayList<Stage>();
-	private Spinner spAnnee;
-	private Spinner spFiliere;
-	private Spinner spClasse;
-	private ListView lvStage;
-	private String anneeSelect=null;
-	private int filiereSelect=0;
-	private int classeSelect=0;
-	
-	public StageFragment() {
-	}
+    private ProgressDialog pDialog;
+    private boolean error;
+    private ArrayList<AnneeScol> lesAnnees = new ArrayList<AnneeScol>();
+    private ArrayList<Filiere> lesFilieres = new ArrayList<Filiere>();
+    private ArrayList<Classe> lesClasses = new ArrayList<Classe>();
+    private ArrayList<Stage> lesStages = new ArrayList<Stage>();
+    private Spinner spAnnee;
+    private Spinner spFiliere;
+    private Spinner spClasse;
+    private ListView lvStage;
+    private String anneeSelect = null;
+    private int filiereSelect = 0;
+    private int classeSelect = 0;
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    public StageFragment() {
+    }
 
-		View rootView = inflater.inflate(R.layout.fragment_stage, container,
-				false);
-		 spAnnee = (Spinner) rootView
-				.findViewById(R.id.spAnnee);
-		 spFiliere = (Spinner) rootView
-					.findViewById(R.id.spFiliere);
-		 spClasse = (Spinner) rootView
-					.findViewById(R.id.spClasse);
-		 lvStage = (ListView) rootView.findViewById(R.id.lvStage);
-		 lvStage.setOnItemClickListener(new OnItemClickListener() {
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
 
-				@Override
-				public void onItemClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					modifStage(lesStages.get(position));
-				}
-			});
-		 spAnnee.setOnItemSelectedListener(new OnItemSelectedListener() {
-			
-				@Override
-				public void onItemSelected(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					// TODO Auto-generated method stub
-					anneeSelect = lesAnnees.get(arg2).getAnneeScol();
-				if(filiereSelect!=0){
-					new getClasses().execute();
-				}
-					
-				}
+        View rootView = inflater.inflate(R.layout.fragment_stage, container,
+                false);
+        spAnnee = (Spinner) rootView
+                .findViewById(R.id.spAnnee);
+        spFiliere = (Spinner) rootView
+                .findViewById(R.id.spFiliere);
+        spClasse = (Spinner) rootView
+                .findViewById(R.id.spClasse);
+        lvStage = (ListView) rootView.findViewById(R.id.lvStage);
+        lvStage.setOnItemClickListener(new OnItemClickListener() {
 
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// TODO Auto-generated method stub
-					anneeSelect = null;
-				}
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                modifStage(lesStages.get(position));
+            }
+        });
+        spAnnee.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			});
-		 spFiliere.setOnItemSelectedListener(new OnItemSelectedListener() {
-				
-				@Override
-				public void onItemSelected(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					// TODO Auto-generated method stub
-					filiereSelect = lesFilieres.get(arg2).getNumFiliere();
-					if(anneeSelect!=null){
-						new getClasses().execute();
-					}
-					
-				}
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                anneeSelect = lesAnnees.get(arg2).getAnneeScol();
+                if (filiereSelect != 0) {
+                    new getClasses().execute();
+                }
 
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// TODO Auto-generated method stub
-					filiereSelect = 0;
-				}
+            }
 
-			});
-		 spClasse.setOnItemSelectedListener(new OnItemSelectedListener() {
-				
-				@Override
-				public void onItemSelected(AdapterView<?> arg0, View arg1,
-						int arg2, long arg3) {
-					// TODO Auto-generated method stub
-					classeSelect = lesClasses.get(arg2).getNumClasse();
-					new getStages().execute();
-				
-				}
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+                anneeSelect = null;
+            }
 
-				@Override
-				public void onNothingSelected(AdapterView<?> arg0) {
-					// TODO Auto-generated method stub
-					classeSelect = 0;
-				}
+        });
+        spFiliere.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			});
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                filiereSelect = lesFilieres.get(arg2).getNumFiliere();
+                if (anneeSelect != null) {
+                    new getClasses().execute();
+                }
 
-		new getAnnees().execute();
-		return rootView;
-	}
-	
-	private void modifStage(final Stage stage){
-		new AlertDialog.Builder(getActivity())
-		.setTitle("Modification")
-		.setMessage("Voulez-vous modidifiez le stage de :"+stage.getEtudiant().getPrenom()+" "+stage.getEtudiant().getNom())
-		.setPositiveButton("Oui",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int id) {
-						dialog.dismiss();
-						((MainActivity) getActivity()).goTo(
-								null, 11, stage.getNum_stage());
-					}
-				}).setNegativeButton("Non", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int id) {
-						dialog.dismiss();
-					}
-				}).show();
-		
+            }
 
-	}
-	
-	private void chargerListStages(){
-		StageListAdapter dataAdapter = new StageListAdapter(
-				getActivity(), lesStages);
-		lvStage.setAdapter(dataAdapter);
-	}
-	private void chargerListAnnees(){
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+                filiereSelect = 0;
+            }
 
-		List<String> lablesAnnees = new ArrayList<String>();
+        });
+        spClasse.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-		for (int i = 0; i < lesAnnees.size(); i++) {
-			lablesAnnees.add(lesAnnees.get(i).getAnneeScol());
-		}
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                // TODO Auto-generated method stub
+                classeSelect = lesClasses.get(arg2).getNumClasse();
+                new getStages().execute();
 
-		// Creating adapter for spinner
-		ArrayAdapter<String> spinnerAdapterAnnee = new ArrayAdapter<String>(
-				getActivity(), android.R.layout.simple_spinner_item,
-				lablesAnnees);
+            }
 
-		spinnerAdapterAnnee
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// attaching data adapter to spinner
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                // TODO Auto-generated method stub
+                classeSelect = 0;
+            }
 
-		spAnnee.setAdapter(spinnerAdapterAnnee);
+        });
 
-	}
-	private void chargerListFilieres(){
+        new getAnnees().execute();
+        return rootView;
+    }
 
-		List<String> lablesFilieres = new ArrayList<String>();
+    private void modifStage(final Stage stage) {
+        new AlertDialog.Builder(getActivity())
+                .setTitle("Modification")
+                .setMessage("Voulez-vous modidifiez le stage de :" + stage.getEtudiant().getPrenom() + " " + stage.getEtudiant().getNom())
+                .setPositiveButton("Oui",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                                int id) {
+                                dialog.dismiss();
+                                ((MainActivity) getActivity()).goTo(
+                                        null, 11, stage.getNum_stage());
+                            }
+                        }).setNegativeButton("Non", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog,
+                                int id) {
+                dialog.dismiss();
+            }
+        }).show();
 
-		for (int i = 0; i < lesFilieres.size(); i++) {
-			lablesFilieres.add(lesFilieres.get(i).getLibelleFiliere());
-		}
 
-		// Creating adapter for spinner
-		ArrayAdapter<String> spinnerAdapterFiliere = new ArrayAdapter<String>(
-				getActivity(), android.R.layout.simple_spinner_item,
-				lablesFilieres);
+    }
 
-		spinnerAdapterFiliere
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// attaching data adapter to spinner
+    private void chargerListStages() {
+        StageListAdapter dataAdapter = new StageListAdapter(
+                getActivity(), lesStages);
+        lvStage.setAdapter(dataAdapter);
+    }
 
-		spFiliere.setAdapter(spinnerAdapterFiliere);
+    private void chargerListAnnees() {
 
-	}
-	private void chargerListClasses(){
+        List<String> lablesAnnees = new ArrayList<String>();
 
-		List<String> lablesClasses = new ArrayList<String>();
+        for (int i = 0; i < lesAnnees.size(); i++) {
+            lablesAnnees.add(lesAnnees.get(i).getAnneeScol());
+        }
 
-		for (int i = 0; i < lesClasses.size(); i++) {
-			lablesClasses.add(lesClasses.get(i).getNomClasse());
-		}
+        // Creating adapter for spinner
+        ArrayAdapter<String> spinnerAdapterAnnee = new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_spinner_item,
+                lablesAnnees);
 
-		// Creating adapter for spinner
-		ArrayAdapter<String> spinnerAdapterClasse = new ArrayAdapter<String>(
-				getActivity(), android.R.layout.simple_spinner_item,
-				lablesClasses);
+        spinnerAdapterAnnee
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
 
-		spinnerAdapterClasse
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		// attaching data adapter to spinner
+        spAnnee.setAdapter(spinnerAdapterAnnee);
 
-		spClasse.setAdapter(spinnerAdapterClasse);
+    }
 
-	}
-	private class getAnnees extends AsyncTask<Void, Void, Void> {
+    private void chargerListFilieres() {
 
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Chargement...");
-			pDialog.setCancelable(false);
-			pDialog.show();
+        List<String> lablesFilieres = new ArrayList<String>();
 
-		}
+        for (int i = 0; i < lesFilieres.size(); i++) {
+            lablesFilieres.add(lesFilieres.get(i).getLibelleFiliere());
+        }
 
-		@Override
-		protected Void doInBackground(Void... arg0) {
-			// lesChantiers = new ArrayList<Chantier>();
+        // Creating adapter for spinner
+        ArrayAdapter<String> spinnerAdapterFiliere = new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_spinner_item,
+                lablesFilieres);
 
-			AnneeScolF anneeF = new AnneeScolF();
-			FiliereF filiereF = new FiliereF();
-			try {
-				lesAnnees = (ArrayList<AnneeScol>) anneeF
-						.getAll();
-				lesFilieres = (ArrayList<Filiere>) filiereF.getAll();
-				error = false;
+        spinnerAdapterFiliere
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
 
-			} catch (ConnectTimeoutException e) {
-				// TODO Auto-generated catch block
-				Log.e("CONNEXION", "pas de connexion au serveur");
-				error = true;
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			}
-			return null;
+        spFiliere.setAdapter(spinnerAdapterFiliere);
 
-		}
+    }
 
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			if (pDialog.isShowing())
-				pDialog.dismiss();
-			if (error == true) {
-				new AlertDialog.Builder(getActivity())
-						.setTitle("ERREUR")
-						.setMessage("Pas de connexion au serveur")
-						.setPositiveButton("OK",
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-										dialog.dismiss();
-										((MainActivity) getActivity()).goTo(
-												null, 0, 0);
-									}
-								}).show();
+    private void chargerListClasses() {
 
-			} else {
-				chargerListAnnees();
-				chargerListFilieres();
-		
-				}
-			
+        List<String> lablesClasses = new ArrayList<String>();
 
-		}
+        for (int i = 0; i < lesClasses.size(); i++) {
+            lablesClasses.add(lesClasses.get(i).getNomClasse());
+        }
 
-	}
-	private class getClasses extends AsyncTask<Void, Void, Void> {
+        // Creating adapter for spinner
+        ArrayAdapter<String> spinnerAdapterClasse = new ArrayAdapter<String>(
+                getActivity(), android.R.layout.simple_spinner_item,
+                lablesClasses);
 
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			if(!pDialog.isShowing()){
-			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Chargement...");
-			pDialog.setCancelable(false);
-			pDialog.show();
-			}
-		}
+        spinnerAdapterClasse
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // attaching data adapter to spinner
 
-		@Override
-		protected Void doInBackground(Void... arg0) {
-			// lesChantiers = new ArrayList<Chantier>();
+        spClasse.setAdapter(spinnerAdapterClasse);
 
-		ClasseF classeF = new ClasseF();
-			try {
-				lesClasses = (ArrayList<Classe>) classeF.getSelected(anneeSelect, filiereSelect);
-			
-				error = false;
+    }
 
-			} catch (ConnectTimeoutException e) {
-				// TODO Auto-generated catch block
-				Log.e("CONNEXION", "pas de connexion au serveur");
-				error = true;
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			}
-			return null;
+    private class getAnnees extends AsyncTask<Void, Void, Void> {
 
-		}
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Chargement...");
+            pDialog.setCancelable(false);
+            pDialog.show();
 
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			if (pDialog.isShowing())
-				pDialog.dismiss();
-			if (error == true) {
-				new AlertDialog.Builder(getActivity())
-						.setTitle("ERREUR")
-						.setMessage("Pas de connexion au serveur")
-						.setPositiveButton("OK",
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-										dialog.dismiss();
-										((MainActivity) getActivity()).goTo(
-												null, 0, 0);
-									}
-								}).show();
+        }
 
-			} else {
-				chargerListClasses();
-		
-		
-				}
-			
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // lesChantiers = new ArrayList<Chantier>();
 
-		}
+            AnneeScolF anneeF = new AnneeScolF();
+            FiliereF filiereF = new FiliereF();
+            try {
+                lesAnnees = (ArrayList<AnneeScol>) anneeF
+                        .getAll();
+                lesFilieres = (ArrayList<Filiere>) filiereF.getAll();
+                error = false;
 
-	}
-	private class getStages extends AsyncTask<Void, Void, Void> {
+            } catch (ConnectTimeoutException e) {
+                // TODO Auto-generated catch block
+                Log.e("CONNEXION", "pas de connexion au serveur");
+                error = true;
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            }
+            return null;
 
-		@Override
-		protected void onPreExecute() {
-			super.onPreExecute();
-			pDialog = new ProgressDialog(getActivity());
-			pDialog.setMessage("Chargement...");
-			pDialog.setCancelable(false);
-			pDialog.show();
+        }
 
-		}
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            if (error == true) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("ERREUR")
+                        .setMessage("Pas de connexion au serveur")
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.dismiss();
+                                        ((MainActivity) getActivity()).goTo(
+                                                null, 0, 0);
+                                    }
+                                }).show();
 
-		@Override
-		protected Void doInBackground(Void... arg0) {
-			// lesChantiers = new ArrayList<Chantier>();
+            } else {
+                chargerListAnnees();
+                chargerListFilieres();
 
-		StageF stageF = new StageF();
-			try {
-				lesStages = (ArrayList<Stage>) stageF.getSelected( classeSelect);
-			
-				error = false;
+            }
 
-			} catch (ConnectTimeoutException e) {
-				// TODO Auto-generated catch block
-				Log.e("CONNEXION", "pas de connexion au serveur");
-				error = true;
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				error = true;
-			}
-			return null;
 
-		}
+        }
 
-		@Override
-		protected void onPostExecute(Void result) {
-			super.onPostExecute(result);
-			if (pDialog.isShowing())
-				pDialog.dismiss();
-			if (error == true) {
-				new AlertDialog.Builder(getActivity())
-						.setTitle("ERREUR")
-						.setMessage("Pas de connexion au serveur")
-						.setPositiveButton("OK",
-								new DialogInterface.OnClickListener() {
-									public void onClick(DialogInterface dialog,
-											int id) {
-										dialog.dismiss();
-										((MainActivity) getActivity()).goTo(
-												null, 0, 0);
-									}
-								}).show();
+    }
 
-			} else {
-				 chargerListStages();
-		
-		
-				}
-			
+    private class getClasses extends AsyncTask<Void, Void, Void> {
 
-		}
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            if (!pDialog.isShowing()) {
+                pDialog = new ProgressDialog(getActivity());
+                pDialog.setMessage("Chargement...");
+                pDialog.setCancelable(false);
+                pDialog.show();
+            }
+        }
 
-	}
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // lesChantiers = new ArrayList<Chantier>();
+
+            ClasseF classeF = new ClasseF();
+            try {
+                lesClasses = (ArrayList<Classe>) classeF.getSelected(anneeSelect, filiereSelect);
+
+                error = false;
+
+            } catch (ConnectTimeoutException e) {
+                // TODO Auto-generated catch block
+                Log.e("CONNEXION", "pas de connexion au serveur");
+                error = true;
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            if (error == true) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("ERREUR")
+                        .setMessage("Pas de connexion au serveur")
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.dismiss();
+                                        ((MainActivity) getActivity()).goTo(
+                                                null, 0, 0);
+                                    }
+                                }).show();
+
+            } else {
+                chargerListClasses();
+
+
+            }
+
+
+        }
+
+    }
+
+    private class getStages extends AsyncTask<Void, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(getActivity());
+            pDialog.setMessage("Chargement...");
+            pDialog.setCancelable(false);
+            pDialog.show();
+
+        }
+
+        @Override
+        protected Void doInBackground(Void... arg0) {
+            // lesChantiers = new ArrayList<Chantier>();
+
+            StageF stageF = new StageF();
+            try {
+                lesStages = (ArrayList<Stage>) stageF.getSelected(classeSelect);
+
+                error = false;
+
+            } catch (ConnectTimeoutException e) {
+                // TODO Auto-generated catch block
+                Log.e("CONNEXION", "pas de connexion au serveur");
+                error = true;
+            } catch (JSONException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            } catch (IllegalStateException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                error = true;
+            }
+            return null;
+
+        }
+
+        @Override
+        protected void onPostExecute(Void result) {
+            super.onPostExecute(result);
+            if (pDialog.isShowing())
+                pDialog.dismiss();
+            if (error == true) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle("ERREUR")
+                        .setMessage("Pas de connexion au serveur")
+                        .setPositiveButton("OK",
+                                new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,
+                                                        int id) {
+                                        dialog.dismiss();
+                                        ((MainActivity) getActivity()).goTo(
+                                                null, 0, 0);
+                                    }
+                                }).show();
+
+            } else {
+                chargerListStages();
+
+
+            }
+
+
+        }
+
+    }
 }
